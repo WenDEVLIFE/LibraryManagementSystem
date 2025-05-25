@@ -4,8 +4,11 @@
  */
 package librarymanagementsystem;
 
+import com.formdev.flatlaf.FlatIntelliJLaf;
 import javax.swing.*;
 import java.awt.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,7 +26,6 @@ public class Main extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setBackground(new java.awt.Color(233, 30, 99));
         setBackgroundImage();
-
     }
 
     private void setBackgroundImage() {
@@ -197,6 +199,11 @@ public class Main extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                try {
+                    UIManager.setLookAndFeel(new FlatIntelliJLaf());
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 new Main().setVisible(true);
             }
         });
