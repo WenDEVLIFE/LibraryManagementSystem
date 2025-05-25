@@ -4,12 +4,20 @@
  */
 package librarymanagementsystem;
 
+import database_function.AccountRegisterDB;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  *
  * @author Administrator
  */
 public class LibraryAdmin extends javax.swing.JFrame {
 
+    List<String> userTypes = new ArrayList<>();
     /**
      * Creates new form LibraryAdmin
      */
@@ -18,6 +26,12 @@ public class LibraryAdmin extends javax.swing.JFrame {
               setLocationRelativeTo(null);
      setTitle("MindSpire - Library Management System");
         setResizable(false);
+
+        // Initialize user types
+        userTypes.add("Select User Type");
+        userTypes.add("Admin");
+        userTypes.add("Student");
+        userComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(userTypes.toArray(new String[0])));
     }
 
     /**
@@ -1175,8 +1189,51 @@ public class LibraryAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    // This will add the user account
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        String userID = user_id_field.getText();
+        String name = nameField.getText();
+        String email = emailField.getText();
+        String password = new String(passwordField.getPassword());
+        String program = programField.getText();
+        String year = yearField.getText();
+        String userType = (String) userComboBox.getSelectedItem();
+        if (userID.isEmpty() || name.isEmpty() || email.isEmpty() || password.isEmpty() || program.isEmpty() || year.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+        if (!email.contains("@") || !email.contains(".")) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please enter a valid email address.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+        else if (password.length() < 6) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Password must be at least 6 characters long.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+        else if (!year.matches("\\d+")) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Year must be a number.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+        if (userType.equals("Select User Type")) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please select a user type.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+        else {
+
+            Map<String, String> userData = new HashMap<>();
+            userData.put("user_id", userID);
+            userData.put("name", name);
+            userData.put("email", email);
+            userData.put("password", password);
+            userData.put("program", program);
+            userData.put("user_type", userType);
+            userData.put("year", year);
+
+            AccountRegisterDB.getInstance().addUser(userData);
+
+            user_id_field.setText("");
+            nameField.setText("");
+            emailField.setText("");
+            passwordField.setText("");
+            programField.setText("");
+            yearField.setText("");
+            userComboBox.setSelectedIndex(0);
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
