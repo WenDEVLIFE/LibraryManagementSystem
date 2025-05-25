@@ -37,10 +37,11 @@ public class LibraryUser extends javax.swing.JFrame {
         UserPanel = new javax.swing.JPanel();
         BookPanel = new javax.swing.JPanel();
         BorrowPanel = new javax.swing.JPanel();
-        ReturnPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1309, 600));
+
+        jPanel1.setBackground(new java.awt.Color(0, 176, 255));
 
         jLabel3.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -105,6 +106,8 @@ public class LibraryUser extends javax.swing.JFrame {
                 .addGap(27, 27, 27))
         );
 
+        HomePanel7.setBackground(new java.awt.Color(233, 30, 99));
+
         javax.swing.GroupLayout HomePanel7Layout = new javax.swing.GroupLayout(HomePanel7);
         HomePanel7.setLayout(HomePanel7Layout);
         HomePanel7Layout.setHorizontalGroup(
@@ -113,10 +116,12 @@ public class LibraryUser extends javax.swing.JFrame {
         );
         HomePanel7Layout.setVerticalGroup(
             HomePanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 565, Short.MAX_VALUE)
+            .addGap(0, 763, Short.MAX_VALUE)
         );
 
         jtabpane7.addTab("Home", HomePanel7);
+
+        UserPanel.setBackground(new java.awt.Color(233, 30, 99));
 
         javax.swing.GroupLayout UserPanelLayout = new javax.swing.GroupLayout(UserPanel);
         UserPanel.setLayout(UserPanelLayout);
@@ -126,10 +131,12 @@ public class LibraryUser extends javax.swing.JFrame {
         );
         UserPanelLayout.setVerticalGroup(
             UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 565, Short.MAX_VALUE)
+            .addGap(0, 763, Short.MAX_VALUE)
         );
 
-        jtabpane7.addTab("Users", UserPanel);
+        jtabpane7.addTab("Terms", UserPanel);
+
+        BookPanel.setBackground(new java.awt.Color(233, 30, 99));
 
         javax.swing.GroupLayout BookPanelLayout = new javax.swing.GroupLayout(BookPanel);
         BookPanel.setLayout(BookPanelLayout);
@@ -139,10 +146,13 @@ public class LibraryUser extends javax.swing.JFrame {
         );
         BookPanelLayout.setVerticalGroup(
             BookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 565, Short.MAX_VALUE)
+            .addGap(0, 763, Short.MAX_VALUE)
         );
 
         jtabpane7.addTab("Books", BookPanel);
+
+        BorrowPanel.setBackground(new java.awt.Color(233, 30, 99));
+        BorrowPanel.setForeground(new java.awt.Color(233, 30, 99));
 
         javax.swing.GroupLayout BorrowPanelLayout = new javax.swing.GroupLayout(BorrowPanel);
         BorrowPanel.setLayout(BorrowPanelLayout);
@@ -152,23 +162,10 @@ public class LibraryUser extends javax.swing.JFrame {
         );
         BorrowPanelLayout.setVerticalGroup(
             BorrowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 565, Short.MAX_VALUE)
+            .addGap(0, 763, Short.MAX_VALUE)
         );
 
-        jtabpane7.addTab("Borrow", BorrowPanel);
-
-        javax.swing.GroupLayout ReturnPanelLayout = new javax.swing.GroupLayout(ReturnPanel);
-        ReturnPanel.setLayout(ReturnPanelLayout);
-        ReturnPanelLayout.setHorizontalGroup(
-            ReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1101, Short.MAX_VALUE)
-        );
-        ReturnPanelLayout.setVerticalGroup(
-            ReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 565, Short.MAX_VALUE)
-        );
-
-        jtabpane7.addTab("Return Books", ReturnPanel);
+        jtabpane7.addTab("Borrowed", BorrowPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -178,7 +175,7 @@ public class LibraryUser extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtabpane7, javax.swing.GroupLayout.DEFAULT_SIZE, 1101, Short.MAX_VALUE))
+                .addComponent(jtabpane7))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,7 +240,6 @@ public class LibraryUser extends javax.swing.JFrame {
     private javax.swing.JPanel HomePanel5;
     private javax.swing.JPanel HomePanel6;
     private javax.swing.JPanel HomePanel7;
-    private javax.swing.JPanel ReturnPanel;
     private javax.swing.JPanel UserPanel;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
