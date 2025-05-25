@@ -22,7 +22,7 @@ public class LoginUser extends javax.swing.JFrame {
     public LoginUser() {
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Library Management System");
+        setTitle("MindSpire - Library Management System");
         setResizable(false);
         getContentPane().setBackground(new java.awt.Color(233, 30, 99));
         jPanel1.setBackground(new java.awt.Color(233, 30, 99));

@@ -22,7 +22,7 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Library Management System");
+        setTitle(" MindSpire - Library Management System");
         setResizable(false);
         getContentPane().setBackground(new java.awt.Color(233, 30, 99));
         setBackgroundImage();

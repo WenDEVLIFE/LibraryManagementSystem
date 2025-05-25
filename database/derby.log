@@ -29,3 +29,9 @@ os.arch=amd64
 os.version=10.0
 derby.system.home=C:\Users\Administrator\Documents\NetBeansProjects\LibraryManagementSystem\database
 Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Sun May 25 21:46:55 SGT 2025: Shutting down Derby engine
+----------------------------------------------------------------
+Sun May 25 21:46:55 SGT 2025:
+Shutting down instance 6ede40af-0197-0753-9f7f-000006d3f07a on database directory C:\Users\Administrator\Documents\NetBeansProjects\LibraryManagementSystem\database\LibrarySystem with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@6bc7c054 
+----------------------------------------------------------------
