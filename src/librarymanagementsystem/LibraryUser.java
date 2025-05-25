@@ -26,25 +26,21 @@ public class LibraryUser extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jtabpane = new javax.swing.JTabbedPane();
-        hometab = new javax.swing.JTabbedPane();
-        termtab = new javax.swing.JTabbedPane();
-        booktab = new javax.swing.JTabbedPane();
-        borrow = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jtabpane7 = new javax.swing.JTabbedPane();
+        HomePanel7 = new javax.swing.JPanel();
+        UserPanel = new javax.swing.JPanel();
+        BookPanel = new javax.swing.JPanel();
+        BorrowPanel = new javax.swing.JPanel();
+        ReturnPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1309, 600));
-
-        jtabpane.addTab("Home", hometab);
-        jtabpane.addTab("Users", termtab);
-        jtabpane.addTab("Books", booktab);
-        jtabpane.addTab("Borrowed", borrow);
 
         jLabel3.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -109,6 +105,71 @@ public class LibraryUser extends javax.swing.JFrame {
                 .addGap(27, 27, 27))
         );
 
+        javax.swing.GroupLayout HomePanel7Layout = new javax.swing.GroupLayout(HomePanel7);
+        HomePanel7.setLayout(HomePanel7Layout);
+        HomePanel7Layout.setHorizontalGroup(
+            HomePanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1101, Short.MAX_VALUE)
+        );
+        HomePanel7Layout.setVerticalGroup(
+            HomePanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 565, Short.MAX_VALUE)
+        );
+
+        jtabpane7.addTab("Home", HomePanel7);
+
+        javax.swing.GroupLayout UserPanelLayout = new javax.swing.GroupLayout(UserPanel);
+        UserPanel.setLayout(UserPanelLayout);
+        UserPanelLayout.setHorizontalGroup(
+            UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1101, Short.MAX_VALUE)
+        );
+        UserPanelLayout.setVerticalGroup(
+            UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 565, Short.MAX_VALUE)
+        );
+
+        jtabpane7.addTab("Users", UserPanel);
+
+        javax.swing.GroupLayout BookPanelLayout = new javax.swing.GroupLayout(BookPanel);
+        BookPanel.setLayout(BookPanelLayout);
+        BookPanelLayout.setHorizontalGroup(
+            BookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1101, Short.MAX_VALUE)
+        );
+        BookPanelLayout.setVerticalGroup(
+            BookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 565, Short.MAX_VALUE)
+        );
+
+        jtabpane7.addTab("Books", BookPanel);
+
+        javax.swing.GroupLayout BorrowPanelLayout = new javax.swing.GroupLayout(BorrowPanel);
+        BorrowPanel.setLayout(BorrowPanelLayout);
+        BorrowPanelLayout.setHorizontalGroup(
+            BorrowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1101, Short.MAX_VALUE)
+        );
+        BorrowPanelLayout.setVerticalGroup(
+            BorrowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 565, Short.MAX_VALUE)
+        );
+
+        jtabpane7.addTab("Borrow", BorrowPanel);
+
+        javax.swing.GroupLayout ReturnPanelLayout = new javax.swing.GroupLayout(ReturnPanel);
+        ReturnPanel.setLayout(ReturnPanelLayout);
+        ReturnPanelLayout.setHorizontalGroup(
+            ReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1101, Short.MAX_VALUE)
+        );
+        ReturnPanelLayout.setVerticalGroup(
+            ReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 565, Short.MAX_VALUE)
+        );
+
+        jtabpane7.addTab("Return Books", ReturnPanel);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -117,14 +178,12 @@ public class LibraryUser extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtabpane, javax.swing.GroupLayout.PREFERRED_SIZE, 1112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jtabpane7, javax.swing.GroupLayout.DEFAULT_SIZE, 1101, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jtabpane, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jtabpane7)
         );
 
         pack();
@@ -174,16 +233,38 @@ public class LibraryUser extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTabbedPane booktab;
-    private javax.swing.JTabbedPane borrow;
-    private javax.swing.JTabbedPane hometab;
+    private javax.swing.JPanel BookPanel;
+    private javax.swing.JPanel BorrowPanel;
+    private javax.swing.JPanel HomePanel;
+    private javax.swing.JPanel HomePanel1;
+    private javax.swing.JPanel HomePanel2;
+    private javax.swing.JPanel HomePanel3;
+    private javax.swing.JPanel HomePanel4;
+    private javax.swing.JPanel HomePanel5;
+    private javax.swing.JPanel HomePanel6;
+    private javax.swing.JPanel HomePanel7;
+    private javax.swing.JPanel ReturnPanel;
+    private javax.swing.JPanel UserPanel;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JTabbedPane jtabpane;
-    private javax.swing.JTabbedPane termtab;
+    private javax.swing.JTabbedPane jtabpane1;
+    private javax.swing.JTabbedPane jtabpane2;
+    private javax.swing.JTabbedPane jtabpane3;
+    private javax.swing.JTabbedPane jtabpane4;
+    private javax.swing.JTabbedPane jtabpane5;
+    private javax.swing.JTabbedPane jtabpane6;
+    private javax.swing.JTabbedPane jtabpane7;
     // End of variables declaration//GEN-END:variables
 }
