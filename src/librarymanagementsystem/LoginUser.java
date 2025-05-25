@@ -5,6 +5,8 @@
 package librarymanagementsystem;
 
 import com.formdev.flatlaf.FlatIntelliJLaf;
+import database_function.LoginDerbyDB;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.logging.Level;
@@ -196,8 +198,30 @@ public class LoginUser extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // This is for login
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+
+        String id = jTextField1.getText();
+        String email = jTextField2.getText();
+        String password = new String(jPasswordField1.getPassword());
+
+        if (id.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (LoginDerbyDB.getInstance().ifEmailExists(email)){
+            if (LoginDerbyDB.getInstance().ifIdExists(id)) {
+
+                LoginDerbyDB.getInstance().LoginUser(id, email, password, this);
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid ID.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Email does not exist.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

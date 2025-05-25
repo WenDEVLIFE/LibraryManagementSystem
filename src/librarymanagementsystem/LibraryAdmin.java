@@ -22,10 +22,13 @@ public class LibraryAdmin extends javax.swing.JFrame {
     List<String> userTypes = new ArrayList<>();
     List<AccountModel> accountList = new ArrayList<>();
     DefaultTableModel userTableModel;
+    
+    static String userId;
     /**
      * Creates new form LibraryAdmin
      */
-    public LibraryAdmin() {
+    public LibraryAdmin(String userId) {
+         LibraryAdmin.userId = userId;
         initComponents();
               setLocationRelativeTo(null);
      setTitle("MindSpire - Library Management System");
@@ -1303,6 +1306,11 @@ public class LibraryAdmin extends javax.swing.JFrame {
 
         String userID = (String) UserTable.getValueAt(selectedRow, 0);
 
+        if (userID.equals(userId)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Cannot delete yourself.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         int confirmDelete = javax.swing.JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this user?", "Confirm Delete", javax.swing.JOptionPane.YES_NO_OPTION);
 
         if (confirmDelete == javax.swing.JOptionPane.YES_OPTION) {
@@ -1524,7 +1532,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LibraryAdmin().setVisible(true);
+                new LibraryAdmin(userId).setVisible(true);
             }
         });
 

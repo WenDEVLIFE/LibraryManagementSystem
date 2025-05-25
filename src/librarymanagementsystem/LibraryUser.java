@@ -10,10 +10,12 @@ package librarymanagementsystem;
  */
 public class LibraryUser extends javax.swing.JFrame {
 
+    static String userId;
     /**
      * Creates new form LibraryUser
      */
-    public LibraryUser() {
+    public LibraryUser(String userId) {
+        LibraryUser.userId = userId;
         initComponents();
         setLocationRelativeTo(null);
         setTitle("MindSpire - Library Management System");
@@ -742,7 +744,7 @@ public class LibraryUser extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LibraryUser().setVisible(true);
+                new LibraryUser(userId).setVisible(true);
             }
         });
     }

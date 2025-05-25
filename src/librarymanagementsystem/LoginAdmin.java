@@ -5,6 +5,8 @@
 package librarymanagementsystem;
 
 import com.formdev.flatlaf.FlatIntelliJLaf;
+import database_function.LoginDerbyDB;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.logging.Level;
@@ -202,8 +204,30 @@ public class LoginAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    // login the admin
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+
+        String id = jTextField1.getText();
+        String email = jTextField2.getText();
+        String password = new String(jPasswordField1.getPassword());
+
+        if (id.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill all fields", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+       if (!LoginDerbyDB.getInstance().ifIdExists(id)) {
+            JOptionPane.showMessageDialog(this, "ID does not exist", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!LoginDerbyDB.getInstance().ifEmailExists(email)) {
+            JOptionPane.showMessageDialog(this, "Email does not exist", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        LoginDerbyDB.getInstance().LoginAdmin(id, email, password, this);
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
