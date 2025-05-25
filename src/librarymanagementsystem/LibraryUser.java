@@ -8,17 +8,13 @@ package librarymanagementsystem;
  *
  * @author Administrator
  */
-public class LibraryAdmin extends javax.swing.JFrame {
+public class LibraryUser extends javax.swing.JFrame {
 
     /**
-     * Creates new form LibraryAdmin
+     * Creates new form LibraryUser
      */
-    public LibraryAdmin() {
+    public LibraryUser() {
         initComponents();
-              setLocationRelativeTo(null);
-     setTitle("MindSpire - Library Management System");
-        setResizable(false);
-            jPanel1.setBackground(new java.awt.Color(233, 30, 99));
     }
 
     /**
@@ -32,29 +28,27 @@ public class LibraryAdmin extends javax.swing.JFrame {
 
         jtabpane = new javax.swing.JTabbedPane();
         hometab = new javax.swing.JTabbedPane();
-        usertab = new javax.swing.JTabbedPane();
+        termtab = new javax.swing.JTabbedPane();
         booktab = new javax.swing.JTabbedPane();
         borrow = new javax.swing.JTabbedPane();
-        returnbook = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1309, 600));
 
         jtabpane.addTab("Home", hometab);
-        jtabpane.addTab("Users", usertab);
+        jtabpane.addTab("Users", termtab);
         jtabpane.addTab("Books", booktab);
-        jtabpane.addTab("Borrow Books", borrow);
-        jtabpane.addTab("Return Books", returnbook);
+        jtabpane.addTab("Borrowed", borrow);
 
         jLabel3.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("USERS");
+        jLabel3.setText("TERMS");
 
         jLabel4.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -66,7 +60,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("BORROW");
+        jLabel6.setText("BORROWED");
 
         jLabel7.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -77,27 +71,27 @@ public class LibraryAdmin extends javax.swing.JFrame {
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("RETURN");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(42, Short.MAX_VALUE)
                 .addComponent(jLabel7)
-                .addGap(63, 63, 63))
+                .addGap(90, 90, 90))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3))
-                .addContainerGap(52, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel3))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel6)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,12 +100,10 @@ public class LibraryAdmin extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addGap(43, 43, 43)
                 .addComponent(jLabel3)
-                .addGap(38, 38, 38)
+                .addGap(39, 39, 39)
                 .addComponent(jLabel5)
-                .addGap(34, 34, 34)
+                .addGap(33, 33, 33)
                 .addComponent(jLabel6)
-                .addGap(49, 49, 49)
-                .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addGap(27, 27, 27))
@@ -122,6 +114,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jtabpane, javax.swing.GroupLayout.PREFERRED_SIZE, 1112, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -137,14 +130,12 @@ public class LibraryAdmin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    // This is for the logout
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
         int logout = javax.swing.JOptionPane.showConfirmDialog(this, "Are you sure you want to logout?", "Logout", javax.swing.JOptionPane.YES_NO_OPTION);
         if (logout == javax.swing.JOptionPane.YES_OPTION) {
             this.dispose(); // Close the current window
             new Main().setVisible(true); // Open the login window
         }
-
     }//GEN-LAST:event_jLabel7MouseClicked
 
     /**
@@ -164,20 +155,20 @@ public class LibraryAdmin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LibraryAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LibraryUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LibraryAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LibraryUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LibraryAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LibraryUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LibraryAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LibraryUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LibraryAdmin().setVisible(true);
+                new LibraryUser().setVisible(true);
             }
         });
     }
@@ -191,10 +182,8 @@ public class LibraryAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTabbedPane jtabpane;
-    private javax.swing.JTabbedPane returnbook;
-    private javax.swing.JTabbedPane usertab;
+    private javax.swing.JTabbedPane termtab;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,6 +3,9 @@
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[1309, 600]"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -24,6 +27,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jtabpane" min="-2" pref="1112" max="-2" attributes="0"/>
@@ -56,7 +60,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
         </Container>
-        <Container class="javax.swing.JTabbedPane" name="usertab">
+        <Container class="javax.swing.JTabbedPane" name="termtab">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Users">
@@ -81,19 +85,8 @@
         <Container class="javax.swing.JTabbedPane" name="borrow">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Borrow Books">
-                <Property name="tabTitle" type="java.lang.String" value="Borrow Books"/>
-              </JTabbedPaneConstraints>
-            </Constraint>
-          </Constraints>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
-        </Container>
-        <Container class="javax.swing.JTabbedPane" name="returnbook">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Return Books">
-                <Property name="tabTitle" type="java.lang.String" value="Return Books"/>
+              <JTabbedPaneConstraints tabName="Borrowed">
+                <Property name="tabTitle" type="java.lang.String" value="Borrowed"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -108,20 +101,28 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="42" max="32767" attributes="0"/>
                   <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
               </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                          <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace pref="52" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -132,12 +133,10 @@
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
@@ -154,7 +153,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="USERS"/>
+            <Property name="text" type="java.lang.String" value="TERMS"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
@@ -187,7 +186,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="BORROW"/>
+            <Property name="text" type="java.lang.String" value="BORROWED"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
@@ -205,17 +204,6 @@
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel7MouseClicked"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel8">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Verdana" size="18" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="RETURN"/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>
