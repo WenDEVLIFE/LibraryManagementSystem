@@ -35,7 +35,8 @@ public class LibraryUser extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jtabpane7 = new javax.swing.JTabbedPane();
+        jLabel8 = new javax.swing.JLabel();
+        borrowtab = new javax.swing.JTabbedPane();
         HomePanel7 = new javax.swing.JPanel();
         jLabel45 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -70,6 +71,15 @@ public class LibraryUser extends javax.swing.JFrame {
         userComboBox1 = new javax.swing.JComboBox<>();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable5 = new javax.swing.JTable();
+        ReturnPanel = new javax.swing.JPanel();
+        jLabel50 = new javax.swing.JLabel();
+        jTextField11 = new javax.swing.JTextField();
+        jLabel41 = new javax.swing.JLabel();
+        jButton11 = new javax.swing.JButton();
+        jLabel42 = new javax.swing.JLabel();
+        userComboBox2 = new javax.swing.JComboBox<>();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTable6 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,18 +88,38 @@ public class LibraryUser extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("TERMS");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("HOME");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("BOOKS");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("BORROWED");
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -97,6 +127,15 @@ public class LibraryUser extends javax.swing.JFrame {
         jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel7MouseClicked(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("RETURNED");
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel8MouseClicked(evt);
             }
         });
 
@@ -114,11 +153,13 @@ public class LibraryUser extends javax.swing.JFrame {
                                 .addComponent(jLabel4)
                                 .addComponent(jLabel3))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel6))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(56, 56, 56)
-                        .addComponent(jLabel7)))
+                        .addComponent(jLabel7))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel6))))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -132,6 +173,8 @@ public class LibraryUser extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addGap(33, 33, 33)
                 .addComponent(jLabel6)
+                .addGap(38, 38, 38)
+                .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addGap(17, 17, 17))
@@ -258,7 +301,7 @@ public class LibraryUser extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jtabpane7.addTab("Home", HomePanel7);
+        borrowtab.addTab("Home", HomePanel7);
 
         UserPanel.setBackground(new java.awt.Color(233, 30, 99));
 
@@ -297,7 +340,7 @@ public class LibraryUser extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jtabpane7.addTab("Terms", UserPanel);
+        borrowtab.addTab("Terms", UserPanel);
 
         BookPanel.setBackground(new java.awt.Color(233, 30, 99));
 
@@ -350,10 +393,6 @@ public class LibraryUser extends javax.swing.JFrame {
         BookPanel.setLayout(BookPanelLayout);
         BookPanelLayout.setHorizontalGroup(
             BookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BookPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 1093, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BookPanelLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel37)
@@ -369,8 +408,13 @@ public class LibraryUser extends javax.swing.JFrame {
                 .addComponent(userComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
             .addGroup(BookPanelLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jLabel48)
+                .addGroup(BookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(BookPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 1093, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(BookPanelLayout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel48)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         BookPanelLayout.setVerticalGroup(
@@ -396,7 +440,7 @@ public class LibraryUser extends javax.swing.JFrame {
                 .addGap(16, 16, 16))
         );
 
-        jtabpane7.addTab("Books", BookPanel);
+        borrowtab.addTab("Books", BookPanel);
 
         BorrowPanel.setBackground(new java.awt.Color(233, 30, 99));
         BorrowPanel.setForeground(new java.awt.Color(233, 30, 99));
@@ -445,6 +489,9 @@ public class LibraryUser extends javax.swing.JFrame {
             }
         ));
         jScrollPane6.setViewportView(jTable5);
+        if (jTable5.getColumnModel().getColumnCount() > 0) {
+            jTable5.getColumnModel().getColumn(4).setHeaderValue("Date Borrowed");
+        }
 
         javax.swing.GroupLayout BorrowPanelLayout = new javax.swing.GroupLayout(BorrowPanel);
         BorrowPanel.setLayout(BorrowPanelLayout);
@@ -498,7 +545,96 @@ public class LibraryUser extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jtabpane7.addTab("Borrowed", BorrowPanel);
+        borrowtab.addTab("Borrowed", BorrowPanel);
+
+        ReturnPanel.setBackground(new java.awt.Color(233, 30, 99));
+        ReturnPanel.setForeground(new java.awt.Color(233, 30, 99));
+
+        jLabel50.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel50.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel50.setText("RETURNED BOOKS");
+
+        jLabel41.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel41.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel41.setText("Search");
+
+        jButton11.setBackground(new java.awt.Color(0, 176, 255));
+        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+
+        jLabel42.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel42.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel42.setText("Genre");
+
+        userComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jTable6.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "BID", "TITLE", "AUTHOR", "GENRE", "Date Returned"
+            }
+        ));
+        jScrollPane7.setViewportView(jTable6);
+
+        javax.swing.GroupLayout ReturnPanelLayout = new javax.swing.GroupLayout(ReturnPanel);
+        ReturnPanel.setLayout(ReturnPanelLayout);
+        ReturnPanelLayout.setHorizontalGroup(
+            ReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReturnPanelLayout.createSequentialGroup()
+                .addGroup(ReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(ReturnPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane7))
+                    .addGroup(ReturnPanelLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(ReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(ReturnPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel41)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 236, Short.MAX_VALUE)
+                                .addComponent(jLabel42)
+                                .addGap(18, 18, 18)
+                                .addComponent(userComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(ReturnPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel50)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
+        );
+        ReturnPanelLayout.setVerticalGroup(
+            ReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ReturnPanelLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel50)
+                .addGap(28, 28, 28)
+                .addGroup(ReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(ReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(ReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(ReturnPanelLayout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(jLabel41))
+                            .addComponent(jButton11, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(ReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(userComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel42)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        borrowtab.addTab("Returned Books", ReturnPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -508,12 +644,12 @@ public class LibraryUser extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtabpane7))
+                .addComponent(borrowtab))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jtabpane7, javax.swing.GroupLayout.PREFERRED_SIZE, 826, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(borrowtab, javax.swing.GroupLayout.PREFERRED_SIZE, 826, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -542,6 +678,39 @@ public class LibraryUser extends javax.swing.JFrame {
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    // This is for the home tab
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        // Navigate to the home tab
+        borrowtab.setSelectedIndex(0);
+    }//GEN-LAST:event_jLabel4MouseClicked
+
+    // Terms and Condition
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        // Navigate to the terms and condition tab
+        borrowtab.setSelectedIndex(1);
+    }//GEN-LAST:event_jLabel3MouseClicked
+
+    // This will navigate to Books
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        // Navigate to the books tab
+        borrowtab.setSelectedIndex(2);
+    }//GEN-LAST:event_jLabel5MouseClicked
+
+    // This will navigate to borrowed books
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        // Navigate to the borrowed books tab
+        borrowtab.setSelectedIndex(3);
+    }//GEN-LAST:event_jLabel6MouseClicked
+
+    // This will navigate to return books
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+        // Navigate to the returned books tab
+        borrowtab.setSelectedIndex(4);
+    }//GEN-LAST:event_jLabel8MouseClicked
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+    }//GEN-LAST:event_jButton11ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -582,8 +751,11 @@ public class LibraryUser extends javax.swing.JFrame {
     private javax.swing.JPanel BookPanel;
     private javax.swing.JPanel BorrowPanel;
     private javax.swing.JPanel HomePanel7;
+    private javax.swing.JPanel ReturnPanel;
     private javax.swing.JPanel UserPanel;
+    private javax.swing.JTabbedPane borrowtab;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
@@ -597,13 +769,17 @@ public class LibraryUser extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
@@ -611,14 +787,17 @@ public class LibraryUser extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable4;
     private javax.swing.JTable jTable5;
+    private javax.swing.JTable jTable6;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField10;
+    private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField9;
-    private javax.swing.JTabbedPane jtabpane7;
     private javax.swing.JComboBox<String> userComboBox;
     private javax.swing.JComboBox<String> userComboBox1;
+    private javax.swing.JComboBox<String> userComboBox2;
     // End of variables declaration//GEN-END:variables
 }
