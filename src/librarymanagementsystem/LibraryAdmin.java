@@ -5,7 +5,9 @@
 package librarymanagementsystem;
 
 import database_function.AccountRegisterDB;
+import model.AccountModel;
 
+import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +20,8 @@ import java.util.Map;
 public class LibraryAdmin extends javax.swing.JFrame {
 
     List<String> userTypes = new ArrayList<>();
+    List<AccountModel> accountList = new ArrayList<>();
+    DefaultTableModel userTableModel;
     /**
      * Creates new form LibraryAdmin
      */
@@ -32,6 +36,12 @@ public class LibraryAdmin extends javax.swing.JFrame {
         userTypes.add("Admin");
         userTypes.add("Student");
         userComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(userTypes.toArray(new String[0])));
+
+        String [] columnNames = {"USER ID", "NAME", "EMAIL", "PASSWORD", "USER TYPE", "PROGRAM/DEPARTMENT", "YEAR LEVEL/RANK"};
+        userTableModel = new DefaultTableModel(columnNames, 0);
+        UserTable.setModel(userTableModel);
+        loadUserData();
+
     }
 
     /**
@@ -63,7 +73,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
         jLabel44 = new javax.swing.JLabel();
         UserPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        UserTable = new javax.swing.JTable();
         jLabel19 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -73,7 +83,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
         nameField = new javax.swing.JTextField();
         user_id_field = new javax.swing.JTextField();
         emailField = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        searchUserField = new javax.swing.JTextField();
         passwordField = new javax.swing.JPasswordField();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
@@ -351,7 +361,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
         UserPanel.setBackground(new java.awt.Color(233, 30, 99));
         UserPanel.setForeground(new java.awt.Color(233, 30, 99));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        UserTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -362,7 +372,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
                 "USER ID", "NAME", "EMAIL", "PASSWORD", "USER TYPE", "PROGRAM/DEPARTMENT", "YEAR LEVEL/RANK"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(UserTable);
 
         jLabel19.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
@@ -405,7 +415,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(0, 176, 255));
         jButton1.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("CANCEL BOOK");
+        jButton1.setText("CANCEL USER");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -433,7 +443,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
         jButton3.setBackground(new java.awt.Color(0, 176, 255));
         jButton3.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("EDIT BOOK");
+        jButton3.setText("EDIT USER");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -443,7 +453,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
         jButton4.setBackground(new java.awt.Color(0, 176, 255));
         jButton4.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("ADD BOOK");
+        jButton4.setText("ADD USER");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -453,7 +463,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
         jButton5.setBackground(new java.awt.Color(0, 176, 255));
         jButton5.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("REMOVE BOOK");
+        jButton5.setText("REMOVE USER");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -463,7 +473,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
         jButton6.setBackground(new java.awt.Color(0, 176, 255));
         jButton6.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("SAVE BOOK");
+        jButton6.setText("SAVE USER");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -494,7 +504,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel25)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(searchUserField, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2)))
                 .addGroup(UserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -582,7 +592,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
                                     .addGap(14, 14, 14)
                                     .addComponent(jLabel25))
                                 .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(searchUserField, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
                         .addGap(18, 18, 18))
@@ -655,7 +665,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
         jButton8.setBackground(new java.awt.Color(0, 176, 255));
         jButton8.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jButton8.setForeground(new java.awt.Color(255, 255, 255));
-        jButton8.setText("ADD USER");
+        jButton8.setText("ADD BOOK");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
@@ -665,7 +675,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
         jButton9.setBackground(new java.awt.Color(0, 176, 255));
         jButton9.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jButton9.setForeground(new java.awt.Color(255, 255, 255));
-        jButton9.setText("EDIT USER");
+        jButton9.setText("EDIT BOOK");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
@@ -675,7 +685,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
         jButton10.setBackground(new java.awt.Color(0, 176, 255));
         jButton10.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jButton10.setForeground(new java.awt.Color(255, 255, 255));
-        jButton10.setText("REMOVE USER");
+        jButton10.setText("REMOVE BOOK");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton10ActionPerformed(evt);
@@ -685,7 +695,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
         jButton11.setBackground(new java.awt.Color(0, 176, 255));
         jButton11.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jButton11.setForeground(new java.awt.Color(255, 255, 255));
-        jButton11.setText("CANCEL ADD USER");
+        jButton11.setText("CANCEL ");
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton11ActionPerformed(evt);
@@ -695,7 +705,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
         jButton12.setBackground(new java.awt.Color(0, 176, 255));
         jButton12.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jButton12.setForeground(new java.awt.Color(255, 255, 255));
-        jButton12.setText("SAVE USER");
+        jButton12.setText("SAVE BOOK");
         jButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton12ActionPerformed(evt);
@@ -765,7 +775,8 @@ public class LibraryAdmin extends javax.swing.JFrame {
                                                 .addGap(88, 88, 88)
                                                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(52, 52, 52)
-                                                .addComponent(jButton11))
+                                                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(0, 0, Short.MAX_VALUE))
                                             .addGroup(BookPanelLayout.createSequentialGroup()
                                                 .addGroup(BookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BookPanelLayout.createSequentialGroup()
@@ -774,7 +785,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
                                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BookPanelLayout.createSequentialGroup()
                                                         .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addGap(233, 233, 233)))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1, Short.MAX_VALUE)
                                                 .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(17, 17, 17))))))
                             .addGroup(BookPanelLayout.createSequentialGroup()
@@ -1177,16 +1188,49 @@ public class LibraryAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordFieldActionPerformed
 
+    // This is for cancel
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        user_id_field.setText("");
+        nameField.setText("");
+        emailField.setText("");
+        passwordField.setText("");
+        programField.setText("");
+        yearField.setText("");
+        userComboBox.setSelectedIndex(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    // This is for edit user
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+
+        int selectedRow = UserTable.getSelectedRow();
+
+        if (selectedRow == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please select a user to edit.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String userID = (String) UserTable.getValueAt(selectedRow, 0);
+        String name = (String) UserTable.getValueAt(selectedRow, 1);
+        String email = (String) UserTable.getValueAt(selectedRow, 2);
+        String password = (String) UserTable.getValueAt(selectedRow, 3);
+        String program = (String) UserTable.getValueAt(selectedRow, 5);
+        String year = (String) UserTable.getValueAt(selectedRow, 6);
+        String userType = (String) UserTable.getValueAt(selectedRow, 4);
+        user_id_field.setText(userID);
+        nameField.setText(name);
+        emailField.setText(email);
+        passwordField.setText(password);
+        programField.setText(program);
+        yearField.setText(year);
+        userComboBox.setSelectedItem(userType);
+        
+        // Enable the fields for editing
+        user_id_field.setEnabled(false); // Disable editing of user ID
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     // This will add the user account
@@ -1210,8 +1254,18 @@ public class LibraryAdmin extends javax.swing.JFrame {
         else if (!year.matches("\\d+")) {
             javax.swing.JOptionPane.showMessageDialog(this, "Year must be a number.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
-        if (userType.equals("Select User Type")) {
+        else if (userType.equals("Select User Type")) {
             javax.swing.JOptionPane.showMessageDialog(this, "Please select a user type.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+
+        else if (AccountRegisterDB.getInstance().isUserExists(userID)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "User ID already exists.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+        else if (AccountRegisterDB.getInstance().ifEmailExist(email)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Email already exists.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+        else if (AccountRegisterDB.getInstance().ifNameExists(name)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Name already exists.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
         else {
 
@@ -1233,15 +1287,102 @@ public class LibraryAdmin extends javax.swing.JFrame {
             programField.setText("");
             yearField.setText("");
             userComboBox.setSelectedIndex(0);
+            loadUserData();
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    // This is for delete users
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+
+        int selectedRow = UserTable.getSelectedRow();
+
+        if (selectedRow == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please select a user to delete.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String userID = (String) UserTable.getValueAt(selectedRow, 0);
+
+        int confirmDelete = javax.swing.JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this user?", "Confirm Delete", javax.swing.JOptionPane.YES_NO_OPTION);
+
+        if (confirmDelete == javax.swing.JOptionPane.YES_OPTION) {
+            AccountRegisterDB.getInstance().deleteUser(userID);
+
+            // Refresh the table data
+            loadUserData();
+
+            // Clear the input fields
+            user_id_field.setText("");
+            nameField.setText("");
+            emailField.setText("");
+            passwordField.setText("");
+            programField.setText("");
+            yearField.setText("");
+            userComboBox.setSelectedIndex(0);
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    // This is for save edit user
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+
+        int selectedRow = UserTable.getSelectedRow();
+
+        if (selectedRow == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please select a user to save changes.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String userID = user_id_field.getText();
+        String name = nameField.getText();
+        String email = emailField.getText();
+        String password = new String(passwordField.getPassword());
+        String program = programField.getText();
+        String year = yearField.getText();
+        String userType = (String) userComboBox.getSelectedItem();
+
+        if (userID.isEmpty() || name.isEmpty() || email.isEmpty() || password.isEmpty() || program.isEmpty() || year.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!email.contains("@") || !email.contains(".")) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please enter a valid email address.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (password.length() < 6) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Password must be at least 6 characters long.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+
+        if (userType.equals("Select User Type")) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please select a user type.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Map <String, String> updatedUser = new HashMap<>();
+        updatedUser.put("user_id", userID);
+        updatedUser.put("name", name);
+        updatedUser.put("email", email);
+        updatedUser.put("password", password);
+        updatedUser.put("program", program);
+        updatedUser.put("year", year);
+        updatedUser.put("user_type", userType);
+
+        AccountRegisterDB.getInstance().updateUser(updatedUser);
+
+        // Refresh the table data
+        loadUserData();
+
+        // Clear the input fields
+        user_id_field.setText("");
+        nameField.setText("");
+        emailField.setText("");
+        passwordField.setText("");
+        programField.setText("");
+        yearField.setText("");
+        userComboBox.setSelectedIndex(0);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -1334,6 +1475,25 @@ public class LibraryAdmin extends javax.swing.JFrame {
         ReturnPanel.setVisible(true);
     }//GEN-LAST:event_jLabel8MouseClicked
 
+    void loadUserData() {
+        // Load user data into the UserTable
+        DefaultTableModel model = (DefaultTableModel) UserTable.getModel();
+        model.setRowCount(0); // Clear existing rows
+
+        List<AccountModel> users = AccountRegisterDB.getInstance().getUsers();
+        for (AccountModel user : users) {
+            model.addRow(new Object[]{
+                user.getId(),
+                user.getName(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getUserType(),
+                user.getProgramOrDepartment(),
+                user.getYearLevelRank()
+            });
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -1367,6 +1527,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
                 new LibraryAdmin().setVisible(true);
             }
         });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1375,6 +1536,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel HomePanel;
     private javax.swing.JPanel ReturnPanel;
     private javax.swing.JPanel UserPanel;
+    private javax.swing.JTable UserTable;
     private javax.swing.JTextField emailField;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
@@ -1446,7 +1608,6 @@ public class LibraryAdmin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
@@ -1456,7 +1617,6 @@ public class LibraryAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
@@ -1464,6 +1624,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField nameField;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JTextField programField;
+    private javax.swing.JTextField searchUserField;
     private javax.swing.JComboBox<String> userComboBox;
     private javax.swing.JTextField user_id_field;
     private javax.swing.JTextField yearField;
