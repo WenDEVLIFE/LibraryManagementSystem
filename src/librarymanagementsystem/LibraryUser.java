@@ -64,7 +64,7 @@ public class LibraryUser extends javax.swing.JFrame {
         BookTable1.setModel(bookTableModel);
         loadBookData();
 
-        String [] borrowedBookColumnNames = {"BID", "TITLE", "AUTHOR", "CATEGORY", "DATE BORROWED", "DATE RETURNED", "BORROWED COPIES"};
+        String [] borrowedBookColumnNames = {"BORROW ID","BID", "TITLE", "AUTHOR", "CATEGORY", "DATE BORROWED", "DATE RETURNED", "BORROWED COPIES"};
         borrowedBookTableModel = new DefaultTableModel(borrowedBookColumnNames, 0);
         BorrowBookTable.setModel(borrowedBookTableModel);
         loadBorrowedBookData();
@@ -881,8 +881,47 @@ public class LibraryUser extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton9ActionPerformed
 
+    // This will return the book
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
+
+
+        int selectedRow = BorrowBookTable.getSelectedRow();
+
+        if (selectedRow == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please select a book to return.", "No Book Selected", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String borrowID = (String) BorrowBookTable.getValueAt(selectedRow, 0);
+        String bookId = (String) BorrowBookTable.getValueAt(selectedRow, 1);
+        String title = (String) BorrowBookTable.getValueAt(selectedRow, 2);
+        String author = (String) BorrowBookTable.getValueAt(selectedRow, 3);
+        String genre = (String) BorrowBookTable.getValueAt(selectedRow, 4);
+        String dateBorrowed = (String) BorrowBookTable.getValueAt(selectedRow, 5);
+        String dateReturned = java.time.LocalDate.now().toString(); // Set today's date
+        String copiesBorrowed = (String) BorrowBookTable.getValueAt(selectedRow, 7);
+
+        int option = javax.swing.JOptionPane.showConfirmDialog(this, "Are you sure you want to return this book?", "Return Book", javax.swing.JOptionPane.YES_NO_OPTION);
+        if (option == javax.swing.JOptionPane.YES_OPTION) {
+            // Create a map to hold the book data
+            Map<String, String> bookData = new HashMap<>();
+            bookData.put("borrow_id", borrowID);
+            bookData.put("book_id", bookId);
+            bookData.put("title", title);
+            bookData.put("author", author);
+            bookData.put("genre", genre);
+            bookData.put("user_id", userId);
+            bookData.put("name", name);
+            bookData.put("date_borrowed", dateBorrowed);
+            bookData.put("date_returned", dateReturned);
+            bookData.put("copies_borrowed", copiesBorrowed);
+
+            // Call the database method to return the book
+            BookDB.getInstance().returnBook(bookData);
+
+            // Reload the borrowed books table
+            loadBorrowedBookData();
+        }
     }//GEN-LAST:event_jButton10ActionPerformed
 
     // This is for the home tab
@@ -985,6 +1024,7 @@ public class LibraryUser extends javax.swing.JFrame {
         borrowedBookList = BookDB.getInstance().borrowBookByUser(userId);
         for (BorrowBookModel book : borrowedBookList) {
             borrowedBookTableModel.addRow(new Object[]{
+                    book.getId(),
                     book.getBookId(),
                     book.getBookTitle(),
                     book.getBookAuthor(),

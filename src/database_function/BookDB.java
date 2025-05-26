@@ -160,15 +160,25 @@ public class BookDB {
     }
 
     public void borrowBook(Map<String, String> bookData) {
-        String sql = "INSERT INTO BOOKBORROW (BOOK_ID, USER_ID, DATE_BORROWED, DATE_RETURNED, BORROW_QUANTITY) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO BOOKBORROW (BOOK_ID, USER_ID, DATE_BORROWED, DATE_RETURNED, BORROW_QUANTITY, BORROW_ID) VALUES (?, ?, ?, ?, ?, ?)";
         try (var connection = DerbyConnectinDB.getInstance().getConnection();
              var preparedStatement = connection.prepareStatement(sql)) {
+
+            String countSql = "SELECT COUNT(*) FROM BOOKBORROW";
+            int borrowId = 0;
+            try (var countStmt = connection.prepareStatement(countSql);
+                 var countResultSet = countStmt.executeQuery()) {
+                if (countResultSet.next()) {
+                    borrowId = countResultSet.getInt(1) + 1; // Increment count for new ID
+                }
+            }
 
             preparedStatement.setString(1, bookData.get("book_id"));
             preparedStatement.setString(2, bookData.get("user_id"));
             preparedStatement.setString(3, bookData.get("borrow_date"));
             preparedStatement.setString(4, bookData.get("return_date"));
             preparedStatement.setInt(5, Integer.parseInt(bookData.get("quantity")));
+            preparedStatement.setInt(6, borrowId);
 
 
             int result = preparedStatement.executeUpdate();
@@ -189,6 +199,28 @@ public class BookDB {
 
     public void UpdateQuantity(String bookId, int quantity) {
         String sql = "UPDATE BOOKS SET COPIES = COPIES - ? WHERE CAST(BOOK_ID AS VARCHAR(128)) = ?";
+        try (var connection = DerbyConnectinDB.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setInt(1, quantity);
+            preparedStatement.setString(2, bookId);
+
+            int result = preparedStatement.executeUpdate();
+
+            if (result > 0) {
+                System.out.println("Book quantity updated successfully.");
+                JOptionPane.showMessageDialog(null, "Book quantity updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                System.out.println("Failed to update book quantity.");
+                JOptionPane.showMessageDialog(null, "Failed to update book quantity.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void AddQuantity(String bookId, int quantity) {
+        String sql = "UPDATE BOOKS SET COPIES = COPIES + ? WHERE CAST(BOOK_ID AS VARCHAR(128)) = ?";
         try (var connection = DerbyConnectinDB.getInstance().getConnection();
              var preparedStatement = connection.prepareStatement(sql)) {
 
@@ -334,5 +366,82 @@ public class BookDB {
         }
 
         return borrowedBooks;
+    }
+
+    public void returnBook(Map<String, String> bookData) {
+        String countSql = "SELECT COUNT(*) FROM RETURNBOOKK";
+        String insertSql = "INSERT INTO RETURNBOOKK (RETURN_ID, BOOK_ID, USER_ID, DATE_BORROWED, DATE_RETURNED, BORROW_QUANTITY) VALUES (?, ?, ?, ?, ?, ?)";
+        try (var connection = DerbyConnectinDB.getInstance().getConnection();
+             var countStmt = connection.prepareStatement(countSql);
+             var resultSet = countStmt.executeQuery()) {
+
+            int returnId = 1; // Default ID if table is empty
+            if (resultSet.next()) {
+                returnId = resultSet.getInt(1) + 1; // Increment count for new ID
+            }
+
+            try (var preparedStatement = connection.prepareStatement(insertSql)) {
+                preparedStatement.setInt(1, returnId); // Set RETURN_ID
+                preparedStatement.setString(2, bookData.get("book_id"));
+                preparedStatement.setString(3, bookData.get("user_id"));
+                preparedStatement.setString(4, bookData.get("date_borrowed"));
+                preparedStatement.setString(5, bookData.get("date_returned"));
+                preparedStatement.setInt(6, Integer.parseInt(bookData.get("copies_borrowed")));
+
+                int result = preparedStatement.executeUpdate();
+
+                if (result > 0) {
+                    System.out.println("Book returned successfully.");
+                    JOptionPane.showMessageDialog(null, "Book returned successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    AddQuantity(bookData.get("book_id"), Integer.parseInt(bookData.get("copies_borrowed")));
+                    DeleteBorrowedBook(bookData.get("book_id"));
+                } else {
+                    System.out.println("Failed to return book.");
+                    JOptionPane.showMessageDialog(null, "Failed to return book.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void DeleteBorrowedBook(String bookId) {
+        String sql = "DELETE FROM BOOKBORROW WHERE CAST(BOOK_ID AS VARCHAR(128)) = ?";
+        try (var connection = DerbyConnectinDB.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, bookId);
+            int result = preparedStatement.executeUpdate();
+
+            if (result > 0) {
+                System.out.println("Borrowed book deleted successfully.");
+                JOptionPane.showMessageDialog(null, "Borrowed book deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                System.out.println("Failed to delete borrowed book.");
+                JOptionPane.showMessageDialog(null, "Failed to delete borrowed book.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void DeleteReturnBook(String bookId) {
+        String sql = "DELETE FROM RETURNBOOKK WHERE CAST(BOOK_ID AS VARCHAR(128)) = ?";
+        try (var connection = DerbyConnectinDB.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, bookId);
+            int result = preparedStatement.executeUpdate();
+
+            if (result > 0) {
+                System.out.println("Returned book deleted successfully.");
+                JOptionPane.showMessageDialog(null, "Returned book deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                System.out.println("Failed to delete returned book.");
+                JOptionPane.showMessageDialog(null, "Failed to delete returned book.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
