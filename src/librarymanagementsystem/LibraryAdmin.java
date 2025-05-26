@@ -104,21 +104,21 @@ public class LibraryAdmin extends javax.swing.JFrame {
         BookPanel = new javax.swing.JPanel();
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        bookIdField = new javax.swing.JTextField();
         jLabel28 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
+        titleField = new javax.swing.JTextField();
+        authorField = new javax.swing.JTextField();
+        copyrightField = new javax.swing.JTextField();
         jLabel34 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
+        copiesField = new javax.swing.JTextField();
         jLabel35 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        genreComboBox = new javax.swing.JComboBox<>();
         jLabel36 = new javax.swing.JLabel();
-        jTextField13 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
+        publisherField = new javax.swing.JTextField();
+        bookSearchField = new javax.swing.JTextField();
         jLabel37 = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
@@ -647,7 +647,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
         jLabel35.setForeground(new java.awt.Color(255, 255, 255));
         jLabel35.setText("Publisher");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        genreComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel36.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel36.setForeground(new java.awt.Color(255, 255, 255));
@@ -739,23 +739,21 @@ public class LibraryAdmin extends javax.swing.JFrame {
                         .addGroup(BookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(BookPanelLayout.createSequentialGroup()
                                 .addGap(32, 32, 32)
-                                .addGroup(BookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(BookPanelLayout.createSequentialGroup()
-                                        .addGroup(BookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel31)
-                                            .addComponent(jLabel32))
-                                        .addGap(64, 64, 64)
-                                        .addGroup(BookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jTextField8)
-                                            .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(BookPanelLayout.createSequentialGroup()
-                                        .addComponent(jLabel33)
-                                        .addGap(48, 48, 48)
-                                        .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(BookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(BookPanelLayout.createSequentialGroup()
                                         .addComponent(jLabel28)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(bookIdField, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(BookPanelLayout.createSequentialGroup()
+                                        .addGroup(BookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel31)
+                                            .addComponent(jLabel32)
+                                            .addComponent(jLabel33))
+                                        .addGap(64, 64, 64)
+                                        .addGroup(BookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(genreComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(titleField)
+                                            .addComponent(authorField, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE))))
                                 .addGroup(BookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(BookPanelLayout.createSequentialGroup()
                                         .addGap(37, 37, 37)
@@ -768,9 +766,9 @@ public class LibraryAdmin extends javax.swing.JFrame {
                                                 .addGap(25, 25, 25)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(BookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jTextField12)
-                                            .addComponent(jTextField11)
-                                            .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(copiesField)
+                                            .addComponent(copyrightField)
+                                            .addComponent(publisherField, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BookPanelLayout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                                         .addGroup(BookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -794,7 +792,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
                             .addGroup(BookPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel37)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(bookSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton7))))
                     .addGroup(BookPanelLayout.createSequentialGroup()
@@ -825,31 +823,31 @@ public class LibraryAdmin extends javax.swing.JFrame {
                     .addGroup(BookPanelLayout.createSequentialGroup()
                         .addGroup(BookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel28)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bookIdField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel34))
                         .addGap(18, 18, 18)
                         .addGroup(BookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel31)
                             .addGroup(BookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel35))))
                     .addGroup(BookPanelLayout.createSequentialGroup()
-                        .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(copyrightField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(publisherField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(BookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel32)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(authorField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(BookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel36)
-                        .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(copiesField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(24, 24, 24)
                 .addGroup(BookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(BookPanelLayout.createSequentialGroup()
                         .addGroup(BookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel33)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(genreComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(29, 29, 29)
                         .addGroup(BookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(BookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -857,7 +855,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
                                     .addGap(14, 14, 14)
                                     .addComponent(jLabel37))
                                 .addComponent(jButton7, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(bookSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(BookPanelLayout.createSequentialGroup()
                         .addGroup(BookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1203,8 +1201,50 @@ public class LibraryAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+
+           boolean userFound = false;
+        String searchText = searchUserField.getText().trim().toLowerCase();
+
+        // Debug: Print search text
+        System.out.println("Search Text: " + searchText);
+
+        userTableModel.setRowCount(0);
+                  
+        if (searchText.isEmpty()) {
+            loadUserData(); // Load all users if search is empty
+
+            if (!userFound) {
+                javax.swing.JOptionPane.showMessageDialog(this, "No users found.", "Search Result", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+
+                return;
+            }
+            return;
+        }
+
+            for (AccountModel user : accountList) {
+                String id = user.getId() != null ? user.getId().trim().toLowerCase() : "";
+                String name = user.getName() != null ? user.getName().trim().toLowerCase() : "";
+                String email = user.getEmail() != null ? user.getEmail().trim().toLowerCase() : "";
+
+
+                if (id.contains(searchText) || name.contains(searchText) || email.contains(searchText)) {
+                    userTableModel.addRow(new Object[]{
+                            user.getId(),
+                            user.getName(),
+                            user.getEmail(),
+                            user.getPassword(),
+                            user.getUserType(),
+                            user.getProgramOrDepartment(),
+                            user.getYearLevelRank()
+                    });
+                    userFound = true;
+                }
+
+
+        }
+
     }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // This is for edit user
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -1485,12 +1525,13 @@ public class LibraryAdmin extends javax.swing.JFrame {
 
     void loadUserData() {
         // Load user data into the UserTable
-        DefaultTableModel model = (DefaultTableModel) UserTable.getModel();
-        model.setRowCount(0); // Clear existing rows
+        accountList.clear();
 
-        List<AccountModel> users = AccountRegisterDB.getInstance().getUsers();
-        for (AccountModel user : users) {
-            model.addRow(new Object[]{
+        userTableModel.setRowCount(0); // Clear existing rows
+
+        accountList = AccountRegisterDB.getInstance().getUsers();
+        for (AccountModel user : accountList) {
+            userTableModel.addRow(new Object[]{
                 user.getId(),
                 user.getName(),
                 user.getEmail(),
@@ -1545,7 +1586,13 @@ public class LibraryAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel ReturnPanel;
     private javax.swing.JPanel UserPanel;
     private javax.swing.JTable UserTable;
+    private javax.swing.JTextField authorField;
+    private javax.swing.JTextField bookIdField;
+    private javax.swing.JTextField bookSearchField;
+    private javax.swing.JTextField copiesField;
+    private javax.swing.JTextField copyrightField;
     private javax.swing.JTextField emailField;
+    private javax.swing.JComboBox<String> genreComboBox;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -1562,7 +1609,6 @@ public class LibraryAdmin extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1619,20 +1665,15 @@ public class LibraryAdmin extends javax.swing.JFrame {
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JTabbedPane jtabpane;
     private javax.swing.JTextField nameField;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JTextField programField;
+    private javax.swing.JTextField publisherField;
     private javax.swing.JTextField searchUserField;
+    private javax.swing.JTextField titleField;
     private javax.swing.JComboBox<String> userComboBox;
     private javax.swing.JTextField user_id_field;
     private javax.swing.JTextField yearField;
