@@ -7,6 +7,7 @@ package librarymanagementsystem;
 import database_function.AccountRegisterDB;
 import database_function.BookDB;
 import model.AccountModel;
+import model.BookModel;
 
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
@@ -24,6 +25,8 @@ public class LibraryAdmin extends javax.swing.JFrame {
     List<AccountModel> accountList = new ArrayList<>();
 
     List<String> bookGenres = new ArrayList<>();
+    List<BookModel> bookList = new ArrayList<>();
+    DefaultTableModel bookTableModel;
     DefaultTableModel userTableModel;
     
     static String userId;
@@ -55,6 +58,11 @@ public class LibraryAdmin extends javax.swing.JFrame {
         bookGenres.add("Fine Arts Architecture and Design");
         bookGenres.add("Basic Education");
         genreComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(bookGenres.toArray(new String[0])));
+
+        String [] bookColumnNames = {"BOOK ID", "TITLE", "AUTHOR", "GENRE", "COPYRIGHT", "PUBLISHER", "COPIES AVAILABLE"};
+        bookTableModel = new DefaultTableModel(bookColumnNames, 0);
+        BookTable.setModel(bookTableModel);
+        loadBookData();
 
     }
 
@@ -138,7 +146,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        BookTable = new javax.swing.JTable();
         BorrowPanel = new javax.swing.JPanel();
         jLabel38 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
@@ -726,7 +734,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
             }
         });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        BookTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -737,7 +745,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
                 "BID", "TITLE", "AUTHOR", "GENRE", "COPYRIGHT", "PUBLISHER", "COPIES AVAILABLE"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(BookTable);
 
         javax.swing.GroupLayout BookPanelLayout = new javax.swing.GroupLayout(BookPanel);
         BookPanel.setLayout(BookPanelLayout);
@@ -1474,6 +1482,17 @@ public class LibraryAdmin extends javax.swing.JFrame {
             return;
         }
 
+        // Check if the book ID or title already exists
+        if (BookDB.getInstance().isBookIdExists(bookID)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Book ID already exists.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (BookDB.getInstance().isTitleExists(title)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Title already exists.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         Map<String, String> bookData = new HashMap<>();
         bookData.put("book_id", bookID);
         bookData.put("title", title);
@@ -1495,23 +1514,117 @@ public class LibraryAdmin extends javax.swing.JFrame {
         copyrightField.setText("");
 
         // Reload the book data
-        //loadBookData();
+        loadBookData();
     }//GEN-LAST:event_jButton8ActionPerformed
 
+    // This will edit the book
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
+
+        int selectedRow = BookTable.getSelectedRow();
+
+        if (selectedRow == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please select a book to edit.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String bookID = (String) BookTable.getValueAt(selectedRow, 0);
+        String title = (String) BookTable.getValueAt(selectedRow, 1);
+        String author = (String) BookTable.getValueAt(selectedRow, 2);
+        String genre = (String) BookTable.getValueAt(selectedRow, 3);
+        String copyright = (String) BookTable.getValueAt(selectedRow, 4);
+        String publisher = (String) BookTable.getValueAt(selectedRow, 5);
+        String copies = String.valueOf(BookTable.getValueAt(selectedRow, 6)); // Convert to String
+
+        bookIdField.setText(bookID);
+        titleField.setText(title);
+        authorField.setText(author);
+        genreComboBox.setSelectedItem(genre);
+        publisherField.setText(publisher);
+        copyrightField.setText(copyright);
+        copiesField.setText(copies);
     }//GEN-LAST:event_jButton9ActionPerformed
 
+    // This will remove the book
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
+
+        int selectedRow = BookTable.getSelectedRow();
+
+        if (selectedRow == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please select a book to delete.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String bookID = (String) BookTable.getValueAt(selectedRow, 0);
+        int confirmDelete = javax.swing.JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this book?", "Confirm Delete", javax.swing.JOptionPane.YES_NO_OPTION);
+        if (confirmDelete == javax.swing.JOptionPane.YES_OPTION) {
+            BookDB.getInstance().deleteBook(bookID);
+
+        }
     }//GEN-LAST:event_jButton10ActionPerformed
 
+    // This will cancel the book
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
+        bookIdField.setText("");
+        titleField.setText("");
+        authorField.setText("");
+        genreComboBox.setSelectedIndex(0);
+        copiesField.setText("");
+        publisherField.setText("");
+        copyrightField.setText("");
+
     }//GEN-LAST:event_jButton11ActionPerformed
 
+    // This will save the edit book
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = BookTable.getSelectedRow();
+
+        if (selectedRow == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please select a book to save changes.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String bookID = bookIdField.getText();
+        String title = titleField.getText();
+        String author = authorField.getText();
+        String genre = (String) genreComboBox.getSelectedItem();
+        String publisher = publisherField.getText();
+        String copyright = copyrightField.getText();
+        String copies = copiesField.getText();
+
+        if (bookID.isEmpty() || title.isEmpty() || author.isEmpty() || genre.equals("Select Genre") || copies.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!copies.matches("\\d+")) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Copies must be a number.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Validate and format the copyright date
+        if (!copyright.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Copyright must be in the format yyyy-MM-dd (e.g., 1995-05-12).", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Map<String, String> updatedBook = new HashMap<>();
+        updatedBook.put("book_id", bookID);
+        updatedBook.put("title", title);
+        updatedBook.put("author", author);
+        updatedBook.put("genre", genre);
+        updatedBook.put("publisher", publisher);
+        updatedBook.put("copyright", copyright);
+        updatedBook.put("copies", copies);
+
+        BookDB.getInstance().updateBook(updatedBook);
+
+        // Clear the input fields
+        bookIdField.setText("");
+        titleField.setText("");
+        authorField.setText("");
+        genreComboBox.setSelectedIndex(0);
+        copiesField.setText("");
+        publisherField.setText("");
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
@@ -1600,6 +1713,26 @@ public class LibraryAdmin extends javax.swing.JFrame {
         }
     }
 
+    void loadBookData() {
+        // Load book data into the BookTable
+        bookList.clear();
+
+        bookTableModel.setRowCount(0); // Clear existing rows
+
+        bookList = BookDB.getInstance().getBooks();
+        for (BookModel book : bookList) {
+            bookTableModel.addRow(new Object[]{
+                book.getId(),
+                book.getTitle(),
+                book.getAuthor(),
+                book.getGenre(),
+                book.getCopyright(),
+                book.getPublisher(),
+                book.getCopies()
+            });
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -1638,6 +1771,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BookPanel;
+    private javax.swing.JTable BookTable;
     private javax.swing.JPanel BorrowPanel;
     private javax.swing.JPanel HomePanel;
     private javax.swing.JPanel ReturnPanel;
@@ -1719,7 +1853,6 @@ public class LibraryAdmin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
     private javax.swing.JTextField jTextField14;
