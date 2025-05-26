@@ -43,7 +43,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
         // Initialize user types
         userTypes.add("Select User Type");
         userTypes.add("Admin");
-        userTypes.add("Student");
+        userTypes.add("User");
         userComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(userTypes.toArray(new String[0])));
 
         String [] columnNames = {"USER ID", "NAME", "EMAIL", "PASSWORD", "USER TYPE", "PROGRAM/DEPARTMENT", "YEAR LEVEL/RANK"};
@@ -981,8 +981,8 @@ public class LibraryAdmin extends javax.swing.JFrame {
                         .addComponent(jButton14, javax.swing.GroupLayout.Alignment.TRAILING))
                     .addComponent(jTextField14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1452,8 +1452,44 @@ public class LibraryAdmin extends javax.swing.JFrame {
         userComboBox.setSelectedIndex(0);
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    
+    // This will filter the book
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+
+        String searchText = bookSearchField.getText().trim().toLowerCase();
+        bookTableModel.setRowCount(0); // Clear the table before adding filtered data
+
+        if (searchText.isEmpty()) {
+            loadBookData(); // Load all books if search is empty
+            return;
+        }
+
+        boolean bookFound = false;
+
+        for (BookModel model : bookList) {
+            String bookId = model.getId()  != null ?model.getId().trim().toLowerCase() : "";
+            String  title  = model.getTitle() != null ? model.getTitle().trim().toLowerCase() : "";
+            String  author = model.getAuthor() != null ? model.getAuthor().trim().toLowerCase() : "";
+            String   genre = model.getGenre() != null ? model.getGenre().trim().toLowerCase() : "";
+
+            if (bookId.contains(searchText) || title.contains(searchText) || author.contains(searchText) || genre.contains(searchText)) {
+                bookTableModel.addRow(new Object[]{
+                        model.getId(),
+                        model.getTitle(),
+                        model.getAuthor(),
+                        model.getGenre(),
+                        model.getCopyright(),
+                        model.getPublisher(),
+                        model.getCopies()
+                });
+                bookFound = true;
+            }
+        }
+
+        if (!bookFound) {
+            javax.swing.JOptionPane.showMessageDialog(this, "No books found matching the search criteria.", "Search Result", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        }
+
     }//GEN-LAST:event_jButton7ActionPerformed
 
     // This will add the books
@@ -1639,10 +1675,6 @@ public class LibraryAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton15ActionPerformed
 
-    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton16ActionPerformed
-
     // navigate home tab
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         jtabpane.setSelectedIndex(0); // Switch to the Home tab
@@ -1692,6 +1724,10 @@ public class LibraryAdmin extends javax.swing.JFrame {
         BorrowPanel.setVisible(false);
         ReturnPanel.setVisible(true);
     }//GEN-LAST:event_jLabel8MouseClicked
+
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton16ActionPerformed
 
     void loadUserData() {
         // Load user data into the UserTable

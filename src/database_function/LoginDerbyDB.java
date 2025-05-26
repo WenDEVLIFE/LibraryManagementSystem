@@ -76,7 +76,7 @@ public class LoginDerbyDB {
                  String userType = resultSet.getString("USER_TYPE");
 
                  if (userType.equals("User")) {
-                     LibraryUser user = new LibraryUser(userId);
+                     LibraryUser user = new LibraryUser(userId, name);
                      user.setVisible(true);
                      loginUser.dispose();
                      JOptionPane.showMessageDialog(null, "Welcome " + name, "Login Successful", JOptionPane.INFORMATION_MESSAGE);

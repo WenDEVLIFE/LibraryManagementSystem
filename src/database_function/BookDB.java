@@ -3,6 +3,7 @@ package database_function;
 import model.BookModel;
 
 import javax.swing.*;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -151,6 +152,56 @@ public class BookDB {
             } else {
                 System.out.println("Failed to delete book.");
                 JOptionPane.showMessageDialog(null, "Failed to delete book.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void borrowBook(Map<String, String> bookData) {
+        String sql = "INSERT INTO BOOKBORROW (BOOK_ID, USER_ID, DATE_BORROWED, DATE_RETURNED, BORROW_QUANTITY) VALUES (?, ?, ?, ?, ?)";
+        try (var connection = DerbyConnectinDB.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, bookData.get("book_id"));
+            preparedStatement.setString(2, bookData.get("user_id"));
+            preparedStatement.setString(3, bookData.get("borrow_date"));
+            preparedStatement.setString(4, bookData.get("return_date"));
+            preparedStatement.setInt(5, Integer.parseInt(bookData.get("quantity")));
+
+
+            int result = preparedStatement.executeUpdate();
+
+
+            if (result > 0) {
+                System.out.println("Book borrowed successfully.");
+                JOptionPane.showMessageDialog(null, "Book borrowed successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                UpdateQuantity(bookData.get("book_id"), Integer.parseInt(bookData.get("quantity")));
+            } else {
+                System.out.println("Failed to borrow book.");
+                JOptionPane.showMessageDialog(null, "Failed to borrow book.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void UpdateQuantity(String bookId, int quantity) {
+        String sql = "UPDATE BOOKS SET COPIES = COPIES - ? WHERE CAST(BOOK_ID AS VARCHAR(128)) = ?";
+        try (var connection = DerbyConnectinDB.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setInt(1, quantity);
+            preparedStatement.setString(2, bookId);
+
+            int result = preparedStatement.executeUpdate();
+
+            if (result > 0) {
+                System.out.println("Book quantity updated successfully.");
+                JOptionPane.showMessageDialog(null, "Book quantity updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                System.out.println("Failed to update book quantity.");
+                JOptionPane.showMessageDialog(null, "Failed to update book quantity.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
             e.printStackTrace();

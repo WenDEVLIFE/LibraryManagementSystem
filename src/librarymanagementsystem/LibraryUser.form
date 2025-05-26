@@ -511,7 +511,7 @@
                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                       <Component id="jLabel37" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jTextField9" min="-2" pref="371" max="-2" attributes="0"/>
+                      <Component id="bookSearchField1" min="-2" pref="371" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jButton7" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
@@ -519,7 +519,7 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jLabel38" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="userComboBox" min="-2" pref="302" max="-2" attributes="0"/>
+                      <Component id="GenreComboBox1" min="-2" pref="302" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
@@ -552,11 +552,11 @@
                                   </Group>
                                   <Component id="jButton7" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jTextField9" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
+                              <Component id="bookSearchField1" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jButton8" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                              <Component id="userComboBox" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="GenreComboBox1" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                               <Component id="jLabel38" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -586,7 +586,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTable2">
+                <Component class="javax.swing.JTable" name="BookTable1">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="7" rowCount="4">
@@ -606,7 +606,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JTextField" name="jTextField9">
+            <Component class="javax.swing.JTextField" name="bookSearchField1">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel37">
               <Properties>
@@ -649,7 +649,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton8ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JComboBox" name="userComboBox">
+            <Component class="javax.swing.JComboBox" name="GenreComboBox1">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="4">
@@ -660,6 +660,9 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GenreComboBox1ActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
@@ -716,8 +719,9 @@
                                       <Component id="jButton10" min="-2" pref="150" max="-2" attributes="0"/>
                                       <EmptySpace pref="55" max="32767" attributes="0"/>
                                       <Component id="jLabel40" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="userComboBox1" min="-2" pref="302" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="genderComboBox2" min="-2" pref="302" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <Component id="jLabel49" min="-2" max="-2" attributes="0"/>
@@ -749,7 +753,7 @@
                           </Group>
                           <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                               <Component id="jButton10" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                              <Component id="userComboBox1" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="genderComboBox2" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                               <Component id="jLabel40" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -826,7 +830,7 @@
                 <Property name="text" type="java.lang.String" value="Genre"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="userComboBox1">
+            <Component class="javax.swing.JComboBox" name="genderComboBox2">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="4">
@@ -848,7 +852,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTable5">
+                <Component class="javax.swing.JTable" name="BorrowBookTable">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="6" rowCount="4">
@@ -940,8 +944,9 @@
                                       <Component id="jButton11" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace pref="236" max="32767" attributes="0"/>
                                       <Component id="jLabel42" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="userComboBox2" min="-2" pref="302" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="genderComboBox3" min="-2" pref="292" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel50" min="-2" max="-2" attributes="0"/>
@@ -972,7 +977,7 @@
                               <Component id="jTextField11" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                              <Component id="userComboBox2" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="genderComboBox3" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                               <Component id="jLabel42" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1032,7 +1037,7 @@
                 <Property name="text" type="java.lang.String" value="Genre"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="userComboBox2">
+            <Component class="javax.swing.JComboBox" name="genderComboBox3">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="4">
@@ -1054,7 +1059,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTable6">
+                <Component class="javax.swing.JTable" name="ReturnBookTable">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="5" rowCount="4">

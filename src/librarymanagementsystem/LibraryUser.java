@@ -4,6 +4,16 @@
  */
 package librarymanagementsystem;
 
+import database_function.BookDB;
+import model.BookModel;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  *
  * @author Administrator
@@ -11,15 +21,34 @@ package librarymanagementsystem;
 public class LibraryUser extends javax.swing.JFrame {
 
     static String userId;
+    static String name;
+    List<String> bookGenres = new ArrayList<>();
+    List<BookModel> bookList = new ArrayList<>();
+
+    DefaultTableModel bookTableModel;
     /**
      * Creates new form LibraryUser
      */
-    public LibraryUser(String userId) {
+    public LibraryUser(String userId, String name) {
         LibraryUser.userId = userId;
+        LibraryUser.name = name;
         initComponents();
         setLocationRelativeTo(null);
         setTitle("MindSpire - Library Management System");
         setResizable(false);
+
+        bookGenres.add("Select Genre");
+        bookGenres.add("Art and Science");
+        bookGenres.add("Accountancy and Business Administration");
+        bookGenres.add("Engineering");
+        bookGenres.add("Fine Arts Architecture and Design");
+        bookGenres.add("Basic Education");
+        GenreComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(bookGenres.toArray(new String[0])));
+
+        String [] bookColumnNames = {"BOOK ID", "TITLE", "AUTHOR", "GENRE", "COPYRIGHT", "PUBLISHER", "COPIES AVAILABLE"};
+        bookTableModel = new DefaultTableModel(bookColumnNames, 0);
+        BookTable1.setModel(bookTableModel);
+        loadBookData();
     }
 
     /**
@@ -56,12 +85,12 @@ public class LibraryUser extends javax.swing.JFrame {
         BookPanel = new javax.swing.JPanel();
         jLabel48 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jTextField9 = new javax.swing.JTextField();
+        BookTable1 = new javax.swing.JTable();
+        bookSearchField1 = new javax.swing.JTextField();
         jLabel37 = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
-        userComboBox = new javax.swing.JComboBox<>();
+        GenreComboBox1 = new javax.swing.JComboBox<>();
         jLabel38 = new javax.swing.JLabel();
         BorrowPanel = new javax.swing.JPanel();
         jLabel49 = new javax.swing.JLabel();
@@ -70,18 +99,18 @@ public class LibraryUser extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jLabel40 = new javax.swing.JLabel();
-        userComboBox1 = new javax.swing.JComboBox<>();
+        genderComboBox2 = new javax.swing.JComboBox<>();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTable5 = new javax.swing.JTable();
+        BorrowBookTable = new javax.swing.JTable();
         ReturnPanel = new javax.swing.JPanel();
         jLabel50 = new javax.swing.JLabel();
         jTextField11 = new javax.swing.JTextField();
         jLabel41 = new javax.swing.JLabel();
         jButton11 = new javax.swing.JButton();
         jLabel42 = new javax.swing.JLabel();
-        userComboBox2 = new javax.swing.JComboBox<>();
+        genderComboBox3 = new javax.swing.JComboBox<>();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jTable6 = new javax.swing.JTable();
+        ReturnBookTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -350,7 +379,7 @@ public class LibraryUser extends javax.swing.JFrame {
         jLabel48.setForeground(new java.awt.Color(255, 255, 255));
         jLabel48.setText("BOOKS");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        BookTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -361,7 +390,7 @@ public class LibraryUser extends javax.swing.JFrame {
                 "BID", "TITLE", "AUTHOR", "GENRE", "COPYRIGHT", "PUBLISHER", "COPIES AVAILABLE"
             }
         ));
-        jScrollPane5.setViewportView(jTable2);
+        jScrollPane5.setViewportView(BookTable1);
 
         jLabel37.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel37.setForeground(new java.awt.Color(255, 255, 255));
@@ -385,7 +414,12 @@ public class LibraryUser extends javax.swing.JFrame {
             }
         });
 
-        userComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        GenreComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        GenreComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GenreComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel38.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel38.setForeground(new java.awt.Color(255, 255, 255));
@@ -399,7 +433,7 @@ public class LibraryUser extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(jLabel37)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bookSearchField1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton7)
                 .addGap(31, 31, 31)
@@ -407,7 +441,7 @@ public class LibraryUser extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel38)
                 .addGap(18, 18, 18)
-                .addComponent(userComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(GenreComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
             .addGroup(BookPanelLayout.createSequentialGroup()
                 .addGroup(BookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -432,10 +466,10 @@ public class LibraryUser extends javax.swing.JFrame {
                                 .addGap(14, 14, 14)
                                 .addComponent(jLabel37))
                             .addComponent(jButton7, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(bookSearchField1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(BookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(userComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(GenreComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel38)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -477,9 +511,9 @@ public class LibraryUser extends javax.swing.JFrame {
         jLabel40.setForeground(new java.awt.Color(255, 255, 255));
         jLabel40.setText("Genre");
 
-        userComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        genderComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+        BorrowBookTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -490,9 +524,9 @@ public class LibraryUser extends javax.swing.JFrame {
                 "BID", "TITLE", "AUTHOR", "CATEGORY", "Date Borrowed", "Date Returned"
             }
         ));
-        jScrollPane6.setViewportView(jTable5);
-        if (jTable5.getColumnModel().getColumnCount() > 0) {
-            jTable5.getColumnModel().getColumn(4).setHeaderValue("Date Borrowed");
+        jScrollPane6.setViewportView(BorrowBookTable);
+        if (BorrowBookTable.getColumnModel().getColumnCount() > 0) {
+            BorrowBookTable.getColumnModel().getColumn(4).setHeaderValue("Date Borrowed");
         }
 
         javax.swing.GroupLayout BorrowPanelLayout = new javax.swing.GroupLayout(BorrowPanel);
@@ -517,8 +551,9 @@ public class LibraryUser extends javax.swing.JFrame {
                                 .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                                 .addComponent(jLabel40)
-                                .addGap(18, 18, 18)
-                                .addComponent(userComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(genderComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12))
                             .addGroup(BorrowPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel49)
                                 .addGap(0, 0, Short.MAX_VALUE)))))
@@ -540,7 +575,7 @@ public class LibraryUser extends javax.swing.JFrame {
                         .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(BorrowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(userComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(genderComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel40)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
@@ -572,9 +607,9 @@ public class LibraryUser extends javax.swing.JFrame {
         jLabel42.setForeground(new java.awt.Color(255, 255, 255));
         jLabel42.setText("Genre");
 
-        userComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        genderComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jTable6.setModel(new javax.swing.table.DefaultTableModel(
+        ReturnBookTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -585,7 +620,7 @@ public class LibraryUser extends javax.swing.JFrame {
                 "BID", "TITLE", "AUTHOR", "GENRE", "Date Returned"
             }
         ));
-        jScrollPane7.setViewportView(jTable6);
+        jScrollPane7.setViewportView(ReturnBookTable);
 
         javax.swing.GroupLayout ReturnPanelLayout = new javax.swing.GroupLayout(ReturnPanel);
         ReturnPanel.setLayout(ReturnPanelLayout);
@@ -607,8 +642,9 @@ public class LibraryUser extends javax.swing.JFrame {
                                 .addComponent(jButton11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 236, Short.MAX_VALUE)
                                 .addComponent(jLabel42)
-                                .addGap(18, 18, 18)
-                                .addComponent(userComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(genderComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(16, 16, 16))
                             .addGroup(ReturnPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel50)
                                 .addGap(0, 0, Short.MAX_VALUE)))))
@@ -629,7 +665,7 @@ public class LibraryUser extends javax.swing.JFrame {
                             .addComponent(jButton11, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(ReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(userComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(genderComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel42)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
@@ -665,12 +701,158 @@ public class LibraryUser extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jLabel7MouseClicked
 
+    
+    // filter books
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+        String searchText = bookSearchField1.getText().trim().toLowerCase();
+        bookTableModel.setRowCount(0); // Clear the table before adding filtered data
+
+        if (searchText.isEmpty()) {
+            loadBookData(); // Load all books if search is empty
+            return;
+        }
+
+        boolean bookFound = false;
+
+        for (BookModel model : bookList) {
+            String bookId = model.getId()  != null ?model.getId().trim().toLowerCase() : "";
+            String  title  = model.getTitle() != null ? model.getTitle().trim().toLowerCase() : "";
+            String  author = model.getAuthor() != null ? model.getAuthor().trim().toLowerCase() : "";
+            String   genre = model.getGenre() != null ? model.getGenre().trim().toLowerCase() : "";
+
+            if (bookId.contains(searchText) || title.contains(searchText) || author.contains(searchText) || genre.contains(searchText)) {
+                bookTableModel.addRow(new Object[]{
+                        model.getId(),
+                        model.getTitle(),
+                        model.getAuthor(),
+                        model.getGenre(),
+                        model.getCopyright(),
+                        model.getPublisher(),
+                        model.getCopies()
+                });
+                bookFound = true;
+            }
+        }
+
+        if (!bookFound) {
+            javax.swing.JOptionPane.showMessageDialog(this, "No books found matching the search criteria.", "Search Result", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        }
+      
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    // This will borrow the book
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+
+        int selectedRow = BookTable1.getSelectedRow();
+        if (selectedRow == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please select a book to borrow.", "No Book Selected", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String bookId = (String) BookTable1.getValueAt(selectedRow, 0);
+        String title = (String) BookTable1.getValueAt(selectedRow, 1);
+        String author = (String) BookTable1.getValueAt(selectedRow, 2);
+        String genre = (String) BookTable1.getValueAt(selectedRow, 3);
+
+        // Check if the book is available
+        int copiesAvailable = (int) BookTable1.getValueAt(selectedRow, 6);
+        if (copiesAvailable <= 0) {
+            javax.swing.JOptionPane.showMessageDialog(this, "This book is not available for borrowing.", "Book Unavailable", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        JOptionPane.showMessageDialog(null, bookId, "Success", JOptionPane.INFORMATION_MESSAGE);
+
+        // Create a custom JDialog for date input
+        JDialog dateDialog = new JDialog(this, "Enter Borrow and Return Dates", true);
+        dateDialog.setLayout(null);
+        dateDialog.setBounds(300, 200, 400, 300);
+
+        JLabel borrowDateLabel = new JLabel("Borrow Date (YYYY-MM-DD):");
+        borrowDateLabel.setBounds(20, 30, 200, 30);
+        dateDialog.add(borrowDateLabel);
+
+        JTextField borrowDateField = new JTextField();
+        borrowDateField.setBounds(220, 30, 150, 30);
+        dateDialog.add(borrowDateField);
+
+        JLabel returnDateLabel = new JLabel("Return Date (YYYY-MM-DD):");
+        returnDateLabel.setBounds(20, 80, 200, 30);
+        dateDialog.add(returnDateLabel);
+
+        JTextField returnDateField = new JTextField();
+        returnDateField.setBounds(220, 80, 150, 30);
+        dateDialog.add(returnDateField);
+
+        JLabel quantityLabel = new JLabel("Quantity:");
+        quantityLabel.setBounds(20, 130, 200, 30);
+        dateDialog.add(quantityLabel);
+
+        JTextField quantityField = new JTextField();
+        quantityField.setBounds(220, 130, 150, 30);
+        dateDialog.add(quantityField);
+
+        JButton confirmButton = new JButton("Confirm");
+        confirmButton.setBounds(50, 200, 100, 30);
+        dateDialog.add(confirmButton);
+
+        JButton cancelButton = new JButton("Cancel");
+        cancelButton.setBounds(200, 200, 100, 30);
+        dateDialog.add(cancelButton);
+
+        confirmButton.addActionListener(e -> {
+            String borrowDate = java.time.LocalDate.now().toString(); // Set today's date
+            String returnDate = returnDateField.getText().trim();
+
+            // Validate return date format
+            if (!returnDate.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                JOptionPane.showMessageDialog(dateDialog, "Return Date must be in the format YYYY-MM-DD.", "Invalid Date Format", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Validate that the return date is not in the past
+            java.time.LocalDate today = java.time.LocalDate.now();
+            java.time.LocalDate returnDateParsed = java.time.LocalDate.parse(returnDate);
+            java.time.LocalDate borrowDateParsed = java.time.LocalDate.parse(borrowDate);
+
+            if (returnDateParsed.isBefore(today)) {
+                JOptionPane.showMessageDialog(dateDialog, "Return Date cannot be in the past.", "Invalid Return Date", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Validate that the return date is after the borrow date
+            if (returnDateParsed.isBefore(borrowDateParsed)) {
+                JOptionPane.showMessageDialog(dateDialog, "Return Date must be after Borrow Date.", "Invalid Return Date", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Validate quantity
+            if (quantityField.getText().trim().isEmpty() || !quantityField.getText().trim().matches("\\d+")) {
+                JOptionPane.showMessageDialog(dateDialog, "Please enter a valid quantity.", "Invalid Quantity", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Pass data to the database
+            Map<String, String> bookData = new HashMap<>();
+            bookData.put("book_id", bookId);
+            bookData.put("title", title);
+            bookData.put("author", author);
+            bookData.put("genre", genre);
+            bookData.put("user_id", userId);
+            bookData.put("name", name);
+            bookData.put("quantity", quantityField.getText().trim());
+            bookData.put("borrow_date", borrowDate); // Use today's date
+            bookData.put("return_date", returnDate);
+
+            BookDB.getInstance().borrowBook(bookData);
+            dateDialog.dispose();
+
+            loadBookData();
+        });
+
+        cancelButton.addActionListener(e -> dateDialog.dispose());
+
+        dateDialog.setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
@@ -714,6 +896,65 @@ public class LibraryUser extends javax.swing.JFrame {
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
     }//GEN-LAST:event_jButton11ActionPerformed
 
+    // This will filter the genres
+    private void GenreComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenreComboBox1ActionPerformed
+     // Filter books based on the search genre
+        String selectedGenre = (String) GenreComboBox1.getSelectedItem();
+
+        bookTableModel.setRowCount(0); // Clear existing rows
+
+        for (BookModel book : bookList) {
+            boolean matchesGenre =  book.getGenre().equals(selectedGenre);
+
+            if( !matchesGenre) {
+                // If no genre is selected or "Select Genre" is chosen, load all books
+                JOptionPane.showMessageDialog(this, "No books found for the selected genre.", "Genre Filter", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
+            if (selectedGenre.equals("Select Genre")) {
+                loadBookData();
+
+                return; // If "Select Genre" is chosen, load all books
+            }
+
+            if (matchesGenre) {
+                bookTableModel.addRow(new Object[]{
+                        book.getId(),
+                        book.getTitle(),
+                        book.getAuthor(),
+                        book.getGenre(),
+                        book.getCopyright(),
+                        book.getPublisher(),
+                        book.getCopies()
+                });
+            }
+
+        }
+    }//GEN-LAST:event_GenreComboBox1ActionPerformed
+
+
+    void loadBookData() {
+        // Load book data into the BookTable
+        bookList.clear();
+
+        bookTableModel.setRowCount(0); // Clear existing rows
+
+        bookList = BookDB.getInstance().getBooks();
+        for (BookModel book : bookList) {
+            bookTableModel.addRow(new Object[]{
+                    book.getId(),
+                    book.getTitle(),
+                    book.getAuthor(),
+                    book.getGenre(),
+                    book.getCopyright(),
+                    book.getPublisher(),
+                    book.getCopies()
+            });
+        }
+    }
+
+    
     /**
      * @param args the command line arguments
      */
@@ -744,18 +985,27 @@ public class LibraryUser extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LibraryUser(userId).setVisible(true);
+                new LibraryUser(userId, name).setVisible(true);
             }
         });
     }
 
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BookPanel;
+    private javax.swing.JTable BookTable1;
+    private javax.swing.JTable BorrowBookTable;
     private javax.swing.JPanel BorrowPanel;
+    private javax.swing.JComboBox<String> GenreComboBox1;
     private javax.swing.JPanel HomePanel7;
+    private javax.swing.JTable ReturnBookTable;
     private javax.swing.JPanel ReturnPanel;
     private javax.swing.JPanel UserPanel;
+    private javax.swing.JTextField bookSearchField1;
     private javax.swing.JTabbedPane borrowtab;
+    private javax.swing.JComboBox<String> genderComboBox2;
+    private javax.swing.JComboBox<String> genderComboBox3;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton7;
@@ -790,16 +1040,9 @@ public class LibraryUser extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable4;
-    private javax.swing.JTable jTable5;
-    private javax.swing.JTable jTable6;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField9;
-    private javax.swing.JComboBox<String> userComboBox;
-    private javax.swing.JComboBox<String> userComboBox1;
-    private javax.swing.JComboBox<String> userComboBox2;
     // End of variables declaration//GEN-END:variables
 }
