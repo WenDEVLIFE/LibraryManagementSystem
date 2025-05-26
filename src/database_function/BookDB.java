@@ -1,9 +1,10 @@
 package database_function;
 
 import model.BookModel;
+import model.BookModel2;
+import model.BorrowBookModel;
 
 import javax.swing.*;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -206,5 +207,132 @@ public class BookDB {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public List<BorrowBookModel> getBorrowedBooks() {
+        String sql = "SELECT * FROM BOOKBORROW";
+        String getBookDetailsSql = "SELECT TITLE, AUTHOR, GENRE FROM BOOKS WHERE CAST(BOOK_ID AS VARCHAR(128)) = ?";
+        List<BorrowBookModel> borrowedBooks = new java.util.ArrayList<>();
+        try (var connection = DerbyConnectinDB.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(sql);
+             var resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                // Generate BORROW_ID by counting rows
+                String countSql = "SELECT COUNT(*) FROM BOOKBORROW";
+                int borrowId = 0;
+                try (var countStmt = connection.prepareStatement(countSql);
+                     var countResultSet = countStmt.executeQuery()) {
+                    if (countResultSet.next()) {
+                        borrowId = countResultSet.getInt(1) + 1; // Increment count for new ID
+                    }
+                }
+
+                String id = String.valueOf(borrowId); // Use the count as BORROW_ID
+                String userId = resultSet.getString("USER_ID");
+                String bookId = resultSet.getString("BOOK_ID");
+                String dateBorrowed = resultSet.getString("DATE_BORROWED");
+                String dateReturned = resultSet.getString("DATE_RETURNED");
+                int copiesBorrowed = resultSet.getInt("BORROW_QUANTITY");
+
+                try (var bookDetailsStmt = connection.prepareStatement(getBookDetailsSql)) {
+                    bookDetailsStmt.setString(1, bookId);
+                    var bookDetailsResultSet = bookDetailsStmt.executeQuery();
+                    if (bookDetailsResultSet.next()) {
+                        String bookTitle = bookDetailsResultSet.getString("TITLE");
+                        String bookAuthor = bookDetailsResultSet.getString("AUTHOR");
+                        String category = bookDetailsResultSet.getString("GENRE");
+
+                        borrowedBooks.add(new BorrowBookModel(id, userId, bookId, bookTitle, bookAuthor, category, dateBorrowed, dateReturned, String.valueOf(copiesBorrowed)));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return borrowedBooks;
+    }
+
+    public List<BorrowBookModel> borrowBookByUser(String userId) {
+        String sql = "SELECT * FROM BOOKBORROW WHERE CAST(USER_ID AS VARCHAR(128)) = ?";
+        String getBookDetailsSql = "SELECT TITLE, AUTHOR, GENRE FROM BOOKS WHERE CAST(BOOK_ID AS VARCHAR(128)) = ?";
+        List<BorrowBookModel> borrowedBooks = new java.util.ArrayList<>();
+        try (var connection = DerbyConnectinDB.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, userId);
+            var resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                String id = resultSet.getString("BORROW_ID");
+                String bookId = resultSet.getString("BOOK_ID");
+                String dateBorrowed = resultSet.getString("DATE_BORROWED");
+                String dateReturned = resultSet.getString("DATE_RETURNED");
+                int copiesBorrowed = resultSet.getInt("BORROW_QUANTITY");
+
+                try (var bookDetailsStmt = connection.prepareStatement(getBookDetailsSql)) {
+                    bookDetailsStmt.setString(1, bookId);
+                    var bookDetailsResultSet = bookDetailsStmt.executeQuery();
+                    if (bookDetailsResultSet.next()) {
+                        String bookTitle = bookDetailsResultSet.getString("TITLE");
+                        String bookAuthor = bookDetailsResultSet.getString("AUTHOR");
+                        String category = bookDetailsResultSet.getString("GENRE");
+
+                        borrowedBooks.add(new BorrowBookModel(id, userId, bookId, bookTitle, bookAuthor, category, dateBorrowed, dateReturned, String.valueOf(copiesBorrowed)));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return borrowedBooks;
+    }
+
+    public List<BookModel2> getBorrowedBooks2(String userId) {
+        String sql = "SELECT * FROM BOOKBORROW WHERE CAST(USER_ID AS VARCHAR(128)) = ?";
+        String getBookDetailsSql = "SELECT TITLE, AUTHOR, GENRE FROM BOOKS WHERE CAST(BOOK_ID AS VARCHAR(128)) = ?";
+        List<BookModel2> borrowedBooks = new java.util.ArrayList<>();
+
+        try (var connection = DerbyConnectinDB.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, userId);
+            try (var resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    String id = resultSet.getString("BORROW_ID");
+                    String bookId = resultSet.getString("BOOK_ID");
+                    String dateBorrowed = resultSet.getString("DATE_BORROWED");
+                    String dateReturned = resultSet.getString("DATE_RETURNED");
+                    int borrowedCopies = resultSet.getInt("BORROW_QUANTITY");
+
+                    // Calculate days remaining
+                    String daysRemaining = "N/A";
+                    if (dateReturned != null && !dateReturned.isEmpty()) {
+                        java.time.LocalDate today = java.time.LocalDate.now();
+                        java.time.LocalDate returnDate = java.time.LocalDate.parse(dateReturned);
+                        long days = java.time.temporal.ChronoUnit.DAYS.between(today, returnDate);
+                        daysRemaining = days >= 0 ? String.valueOf(days) : "Overdue";
+                    }
+
+                    // Fetch book details
+                    try (var bookDetailsStmt = connection.prepareStatement(getBookDetailsSql)) {
+                        bookDetailsStmt.setString(1, bookId);
+                        try (var bookDetailsResultSet = bookDetailsStmt.executeQuery()) {
+                            if (bookDetailsResultSet.next()) {
+                                String title = bookDetailsResultSet.getString("TITLE");
+                                String author = bookDetailsResultSet.getString("AUTHOR");
+                                String genre = bookDetailsResultSet.getString("GENRE");
+
+                                borrowedBooks.add(new BookModel2(id, bookId, title, author, genre, dateBorrowed, daysRemaining, String.valueOf(borrowedCopies)));
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return borrowedBooks;
     }
 }

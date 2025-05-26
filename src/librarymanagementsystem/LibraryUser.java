@@ -5,6 +5,7 @@
 package librarymanagementsystem;
 
 import database_function.BookDB;
+import model.BorrowBookModel;
 import model.BookModel;
 
 import javax.swing.*;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import model.BookModel2;
 
 /**
  *
@@ -25,7 +27,17 @@ public class LibraryUser extends javax.swing.JFrame {
     List<String> bookGenres = new ArrayList<>();
     List<BookModel> bookList = new ArrayList<>();
 
+    List<BorrowBookModel> borrowedBookList = new ArrayList<>();
+
+    List<BookModel2> borrowedBookList2 = new ArrayList<>();
+
     DefaultTableModel bookTableModel;
+
+    DefaultTableModel borrowedBookTableModel;
+
+    DefaultTableModel returnBookTableModel;
+
+    DefaultTableModel userBookTableModel;
     /**
      * Creates new form LibraryUser
      */
@@ -44,11 +56,23 @@ public class LibraryUser extends javax.swing.JFrame {
         bookGenres.add("Fine Arts Architecture and Design");
         bookGenres.add("Basic Education");
         GenreComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(bookGenres.toArray(new String[0])));
+        genderComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(bookGenres.toArray(new String[0])));
+        genderComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(bookGenres.toArray(new String[0])));
 
         String [] bookColumnNames = {"BOOK ID", "TITLE", "AUTHOR", "GENRE", "COPYRIGHT", "PUBLISHER", "COPIES AVAILABLE"};
         bookTableModel = new DefaultTableModel(bookColumnNames, 0);
         BookTable1.setModel(bookTableModel);
         loadBookData();
+
+        String [] borrowedBookColumnNames = {"BID", "TITLE", "AUTHOR", "CATEGORY", "DATE BORROWED", "DATE RETURNED", "BORROWED COPIES"};
+        borrowedBookTableModel = new DefaultTableModel(borrowedBookColumnNames, 0);
+        BorrowBookTable.setModel(borrowedBookTableModel);
+        loadBorrowedBookData();
+
+        String [] borrowedBookColumnNames1 = {"BID", "TITLE", "AUTHOR", "CATEGORY", "DATE BORROWED", "DAYS REMAINING", "BORROWED COPIES"};
+        userBookTableModel = new DefaultTableModel(borrowedBookColumnNames1, 0);
+        jTable4.setModel(userBookTableModel);
+        loadUserBookData();
     }
 
     /**
@@ -515,19 +539,16 @@ public class LibraryUser extends javax.swing.JFrame {
 
         BorrowBookTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "BID", "TITLE", "AUTHOR", "CATEGORY", "Date Borrowed", "Date Returned"
+                "BID", "TITLE", "AUTHOR", "CATEGORY", "Date Borrowed", "Date Returned", "Borrowed Copies"
             }
         ));
         jScrollPane6.setViewportView(BorrowBookTable);
-        if (BorrowBookTable.getColumnModel().getColumnCount() > 0) {
-            BorrowBookTable.getColumnModel().getColumn(4).setHeaderValue("Date Borrowed");
-        }
 
         javax.swing.GroupLayout BorrowPanelLayout = new javax.swing.GroupLayout(BorrowPanel);
         BorrowPanel.setLayout(BorrowPanelLayout);
@@ -848,6 +869,7 @@ public class LibraryUser extends javax.swing.JFrame {
             dateDialog.dispose();
 
             loadBookData();
+            loadBorrowedBookData();
         });
 
         cancelButton.addActionListener(e -> dateDialog.dispose());
@@ -952,6 +974,50 @@ public class LibraryUser extends javax.swing.JFrame {
                     book.getCopies()
             });
         }
+    }
+
+    void loadBorrowedBookData() {
+        // Load borrowed books into the BorrowBookTable
+        borrowedBookList.clear();
+
+        borrowedBookTableModel.setRowCount(0); // Clear existing rows
+
+        borrowedBookList = BookDB.getInstance().borrowBookByUser(userId);
+        for (BorrowBookModel book : borrowedBookList) {
+            borrowedBookTableModel.addRow(new Object[]{
+                    book.getBookId(),
+                    book.getBookTitle(),
+                    book.getBookAuthor(),
+                    book.getCategory(),
+                    book.getDateBorrowed(),
+                    book.getDateReturned(),
+                    book.getCopiesBorrowed()
+            });
+        }
+    }
+
+    void loadUserBookData(){
+
+
+        borrowedBookList2.clear();
+
+        userBookTableModel.setRowCount(0); // Clear existing rows
+
+        borrowedBookList2 = BookDB.getInstance().getBorrowedBooks2(userId);
+
+        for (BookModel2 book : borrowedBookList2) {
+            userBookTableModel.addRow(new Object[]{
+                    book.getBookId(),
+                    book.getTitle(),
+                    book.getAuthor(),
+                    book.getCategory(),
+                    book.getDateBorrowed(),
+                    book.getDaysRemaining(),
+                    book.getBorrowedCopies()
+            });
+        }
+
+
     }
 
     
