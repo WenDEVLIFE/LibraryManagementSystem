@@ -87,6 +87,7 @@ public class LoginDerbyDB {
 
             } else {
                 System.out.println("Invalid credentials");
+                JOptionPane.showMessageDialog(null, "Invalid credentials", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,12 +114,13 @@ public class LoginDerbyDB {
                     admin.dispose();
                     JOptionPane.showMessageDialog(null, "Welcome " + name, "Login Successful", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    System.out.println("No Admin User Found");
+                    System.out.println("No Admin Found");
                     JOptionPane.showMessageDialog(null, "No Admin User Found", "Error", JOptionPane.ERROR_MESSAGE);
                 }
 
             } else {
                 System.out.println("Invalid credentials");
+                JOptionPane.showMessageDialog(null, "Invalid credentials", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
             e.printStackTrace();
