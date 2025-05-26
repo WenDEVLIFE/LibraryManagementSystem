@@ -1791,7 +1791,7 @@
                 <Component class="javax.swing.JTable" name="jTable4">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="7" rowCount="4">
+                      <Table columnCount="8" rowCount="4">
                         <Column editable="true" title="Return ID" type="java.lang.Object"/>
                         <Column editable="true" title="Name" type="java.lang.Object"/>
                         <Column editable="true" title="BID" type="java.lang.Object"/>
@@ -1799,10 +1799,16 @@
                         <Column editable="true" title="AUTHOR" type="java.lang.Object"/>
                         <Column editable="true" title="GENRE" type="java.lang.Object"/>
                         <Column editable="true" title="Date Return" type="java.lang.Object"/>
+                        <Column editable="true" title="No. of Books Borrowed" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>

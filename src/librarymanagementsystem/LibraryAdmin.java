@@ -1022,13 +1022,13 @@ public class LibraryAdmin extends javax.swing.JFrame {
 
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Return ID", "Name", "BID", "TITLE", "AUTHOR", "GENRE", "Date Return"
+                "Return ID", "Name", "BID", "TITLE", "AUTHOR", "GENRE", "Date Return", "No. of Books Borrowed"
             }
         ));
         jScrollPane4.setViewportView(jTable4);

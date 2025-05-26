@@ -302,7 +302,7 @@
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="183" max="-2" attributes="0"/>
-                                  <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                                  <Component id="borrowText" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace pref="85" max="32767" attributes="0"/>
@@ -315,7 +315,7 @@
                           <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                           <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                          <Component id="borrowText" min="-2" max="-2" attributes="0"/>
                           <EmptySpace pref="77" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -333,7 +333,7 @@
                     <Property name="text" type="java.lang.String" value="YOUR BORROWED BOOKS"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel18">
+                <Component class="javax.swing.JLabel" name="borrowText">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Verdana" size="18" style="1"/>
@@ -364,7 +364,7 @@
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="183" max="-2" attributes="0"/>
-                                  <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
+                                  <Component id="returnText" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace pref="73" max="32767" attributes="0"/>
@@ -377,7 +377,7 @@
                           <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                           <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
+                          <Component id="returnText" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -395,7 +395,7 @@
                     <Property name="text" type="java.lang.String" value="YOUR RETURNED BOOKS"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel20">
+                <Component class="javax.swing.JLabel" name="returnText">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Verdana" size="18" style="1"/>
@@ -712,7 +712,7 @@
                                   <Group type="102" attributes="0">
                                       <Component id="jLabel39" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="jTextField10" min="-2" pref="371" max="-2" attributes="0"/>
+                                      <Component id="borrowSearchField" min="-2" pref="371" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="jButton9" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
@@ -749,7 +749,7 @@
                                   </Group>
                                   <Component id="jButton9" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jTextField10" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
+                              <Component id="borrowSearchField" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                               <Component id="jButton10" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
@@ -776,7 +776,7 @@
                 <Property name="text" type="java.lang.String" value="BORROWED BOOKS"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField10">
+            <Component class="javax.swing.JTextField" name="borrowSearchField">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel39">
               <Properties>
@@ -841,6 +841,9 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="genderComboBox2ActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
@@ -945,7 +948,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel41" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="jTextField11" min="-2" pref="371" max="-2" attributes="0"/>
+                                      <Component id="returnSearchField" min="-2" pref="371" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="jButton11" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace pref="236" max="32767" attributes="0"/>
@@ -980,7 +983,7 @@
                                   </Group>
                                   <Component id="jButton11" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jTextField11" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
+                              <Component id="returnSearchField" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                               <Component id="genderComboBox3" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
@@ -1006,7 +1009,7 @@
                 <Property name="text" type="java.lang.String" value="RETURNED BOOKS"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField11">
+            <Component class="javax.swing.JTextField" name="returnSearchField">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel41">
               <Properties>
@@ -1054,6 +1057,9 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="genderComboBox3ActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
@@ -1068,16 +1074,34 @@
                 <Component class="javax.swing.JTable" name="ReturnBookTable">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="5" rowCount="4">
+                      <Table columnCount="8" rowCount="4">
+                        <Column editable="true" title="RETURN ID" type="java.lang.Object"/>
                         <Column editable="true" title="BID" type="java.lang.Object"/>
                         <Column editable="true" title="TITLE" type="java.lang.Object"/>
                         <Column editable="true" title="AUTHOR" type="java.lang.Object"/>
                         <Column editable="true" title="GENRE" type="java.lang.Object"/>
                         <Column editable="true" title="Date Returned" type="java.lang.Object"/>
+                        <Column editable="true" title="NO. OF BOOKS BORROWED" type="java.lang.Object"/>
+                        <Column editable="true" title="Title 8" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
