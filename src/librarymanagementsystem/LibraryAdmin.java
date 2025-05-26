@@ -5,6 +5,7 @@
 package librarymanagementsystem;
 
 import database_function.AccountRegisterDB;
+import database_function.BookDB;
 import model.AccountModel;
 
 import javax.swing.table.DefaultTableModel;
@@ -21,6 +22,8 @@ public class LibraryAdmin extends javax.swing.JFrame {
 
     List<String> userTypes = new ArrayList<>();
     List<AccountModel> accountList = new ArrayList<>();
+
+    List<String> bookGenres = new ArrayList<>();
     DefaultTableModel userTableModel;
     
     static String userId;
@@ -44,6 +47,14 @@ public class LibraryAdmin extends javax.swing.JFrame {
         userTableModel = new DefaultTableModel(columnNames, 0);
         UserTable.setModel(userTableModel);
         loadUserData();
+
+        bookGenres.add("Select Genre");
+        bookGenres.add("Art and Science");
+        bookGenres.add("Accountancy and Business Administration");
+        bookGenres.add("Engineering");
+        bookGenres.add("Fine Arts Architecture and Design");
+        bookGenres.add("Basic Education");
+        genreComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(bookGenres.toArray(new String[0])));
 
     }
 
@@ -1437,8 +1448,54 @@ public class LibraryAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    // This will add the books
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+       String bookID = bookIdField.getText();
+        String title = titleField.getText();
+        String author = authorField.getText();
+        String genre = (String) genreComboBox.getSelectedItem();
+        String publisher = publisherField.getText();
+        String copyright = copyrightField.getText();
+        String copies = copiesField.getText();
+
+        if (bookID.isEmpty() || title.isEmpty() || author.isEmpty() || genre.equals("Select Genre") || copies.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!copies.matches("\\d+")) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Copies must be a number.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Validate and format the copyright date
+        if (!copyright.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Copyright must be in the format yyyy-MM-dd (e.g., 1995-05-12).", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Map<String, String> bookData = new HashMap<>();
+        bookData.put("book_id", bookID);
+        bookData.put("title", title);
+        bookData.put("author", author);
+        bookData.put("genre", genre);
+        bookData.put("publisher", publisher);
+        bookData.put("copyright", copyright);
+        bookData.put("copies", copies);
+
+        BookDB.getInstance().addBook(bookData);
+
+        // Clear the input fields
+        bookIdField.setText("");
+        titleField.setText("");
+        authorField.setText("");
+        genreComboBox.setSelectedIndex(0);
+        copiesField.setText("");
+        publisherField.setText("");
+        copyrightField.setText("");
+
+        // Reload the book data
+        //loadBookData();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
