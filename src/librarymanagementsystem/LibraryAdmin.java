@@ -6,8 +6,7 @@ package librarymanagementsystem;
 
 import database_function.AccountRegisterDB;
 import database_function.BookDB;
-import model.AccountModel;
-import model.BookModel;
+import model.*;
 
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
@@ -28,6 +27,14 @@ public class LibraryAdmin extends javax.swing.JFrame {
     List<BookModel> bookList = new ArrayList<>();
     DefaultTableModel bookTableModel;
     DefaultTableModel userTableModel;
+
+    List<BorrowBookModel> borrowedBookList = new ArrayList<>();
+
+    List<ReturnBookModel> returnBookList = new ArrayList<>();
+
+    DefaultTableModel borrowedBookTableModel;
+
+    DefaultTableModel returnBookTableModel;
     
     static String userId;
     /**
@@ -63,7 +70,17 @@ public class LibraryAdmin extends javax.swing.JFrame {
         bookTableModel = new DefaultTableModel(bookColumnNames, 0);
         BookTable.setModel(bookTableModel);
         loadBookData();
+        loadData();
 
+        String [] borrowedBookColumnNames1 = {"BORROW ID","BID", "TITLE", "AUTHOR", "GENRE", "DATE BORROWED", "DATE RETURNED", "NO. OF BOOKS BORROWED"};
+        borrowedBookTableModel = new DefaultTableModel(borrowedBookColumnNames1, 0);
+        borrowTable.setModel(borrowedBookTableModel);
+        loadBorrowedBookData();
+
+        String [] returnBookColumnNames = {"RETURN ID", "BID", "TITLE", "AUTHOR", "GENRE", "DATE RETURNED", "NO. OF BOOKS BORROWED"};
+        returnBookTableModel = new DefaultTableModel(returnBookColumnNames, 0);
+        returnTable.setModel(returnBookTableModel);
+        loadReturnBookData();
     }
 
     /**
@@ -79,19 +96,19 @@ public class LibraryAdmin extends javax.swing.JFrame {
         HomePanel = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        adminText = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        userText = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        bookText = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        borrowText = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
+        returnText = new javax.swing.JLabel();
         jLabel44 = new javax.swing.JLabel();
         UserPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -151,20 +168,20 @@ public class LibraryAdmin extends javax.swing.JFrame {
         jLabel38 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
         jButton13 = new javax.swing.JButton();
-        jTextField14 = new javax.swing.JTextField();
+        searchBorrowField = new javax.swing.JTextField();
         jLabel40 = new javax.swing.JLabel();
         jButton14 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        borrowTable = new javax.swing.JTable();
         ReturnPanel = new javax.swing.JPanel();
         jLabel41 = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
         jLabel43 = new javax.swing.JLabel();
-        jTextField15 = new javax.swing.JTextField();
+        searchReturnField = new javax.swing.JTextField();
         jButton15 = new javax.swing.JButton();
         jButton16 = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        returnTable = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -183,9 +200,9 @@ public class LibraryAdmin extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("ADMIN");
 
-        jLabel10.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("0");
+        adminText.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        adminText.setForeground(new java.awt.Color(255, 255, 255));
+        adminText.setText("0");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -194,7 +211,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(119, 119, 119)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
+                    .addComponent(adminText)
                     .addComponent(jLabel9))
                 .addContainerGap(149, Short.MAX_VALUE))
         );
@@ -204,7 +221,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addComponent(jLabel9)
                 .addGap(36, 36, 36)
-                .addComponent(jLabel10)
+                .addComponent(adminText)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -214,9 +231,9 @@ public class LibraryAdmin extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("USER");
 
-        jLabel12.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("0");
+        userText.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        userText.setForeground(new java.awt.Color(255, 255, 255));
+        userText.setText("0");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -225,7 +242,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(126, 126, 126)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12)
+                    .addComponent(userText)
                     .addComponent(jLabel11))
                 .addContainerGap(138, Short.MAX_VALUE))
         );
@@ -235,7 +252,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addComponent(jLabel11)
                 .addGap(36, 36, 36)
-                .addComponent(jLabel12)
+                .addComponent(userText)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -245,9 +262,9 @@ public class LibraryAdmin extends javax.swing.JFrame {
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("BOOKS");
 
-        jLabel14.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("0");
+        bookText.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        bookText.setForeground(new java.awt.Color(255, 255, 255));
+        bookText.setText("0");
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -256,7 +273,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                 .addContainerGap(143, Short.MAX_VALUE)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel14)
+                    .addComponent(bookText)
                     .addComponent(jLabel13))
                 .addGap(124, 124, 124))
         );
@@ -266,7 +283,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addComponent(jLabel13)
                 .addGap(36, 36, 36)
-                .addComponent(jLabel14)
+                .addComponent(bookText)
                 .addContainerGap(54, Short.MAX_VALUE))
         );
 
@@ -276,9 +293,9 @@ public class LibraryAdmin extends javax.swing.JFrame {
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("BORROWED");
 
-        jLabel16.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setText("0");
+        borrowText.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        borrowText.setForeground(new java.awt.Color(255, 255, 255));
+        borrowText.setText("0");
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -287,7 +304,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addContainerGap(105, Short.MAX_VALUE)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel16)
+                    .addComponent(borrowText)
                     .addComponent(jLabel15))
                 .addGap(94, 94, 94))
         );
@@ -297,7 +314,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addComponent(jLabel15)
                 .addGap(33, 33, 33)
-                .addComponent(jLabel16)
+                .addComponent(borrowText)
                 .addContainerGap(54, Short.MAX_VALUE))
         );
 
@@ -307,9 +324,9 @@ public class LibraryAdmin extends javax.swing.JFrame {
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setText("RETURNED");
 
-        jLabel18.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText("0");
+        returnText.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        returnText.setForeground(new java.awt.Color(255, 255, 255));
+        returnText.setText("0");
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -318,7 +335,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
                 .addContainerGap(115, Short.MAX_VALUE)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel18)
+                    .addComponent(returnText)
                     .addComponent(jLabel17))
                 .addGap(95, 95, 95))
         );
@@ -328,7 +345,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addComponent(jLabel17)
                 .addGap(33, 33, 33)
-                .addComponent(jLabel18)
+                .addComponent(returnText)
                 .addContainerGap(56, Short.MAX_VALUE))
         );
 
@@ -924,7 +941,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
             }
         });
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        borrowTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -932,10 +949,10 @@ public class LibraryAdmin extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Borrow ID", "Name", "BID", "TITLE", "AUTHOR", "GENRE", "No. of Book Borrowed", "Date Borrowed"
+                "Borrow ID", "Name", "BID", "TITLE", "AUTHOR", "GENRE", "Date Borrowed", "No. of Book Borrowed"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(borrowTable);
 
         javax.swing.GroupLayout BorrowPanelLayout = new javax.swing.GroupLayout(BorrowPanel);
         BorrowPanel.setLayout(BorrowPanelLayout);
@@ -952,7 +969,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
                             .addGroup(BorrowPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel40)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(searchBorrowField, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(22, 22, 22)
                                 .addComponent(jButton14)
                                 .addGap(61, 61, 61)
@@ -979,7 +996,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
                             .addGap(14, 14, 14)
                             .addComponent(jLabel40))
                         .addComponent(jButton14, javax.swing.GroupLayout.Alignment.TRAILING))
-                    .addComponent(jTextField14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchBorrowField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
@@ -1020,7 +1037,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
             }
         });
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        returnTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -1031,7 +1048,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
                 "Return ID", "Name", "BID", "TITLE", "AUTHOR", "GENRE", "Date Return", "No. of Books Borrowed"
             }
         ));
-        jScrollPane4.setViewportView(jTable4);
+        jScrollPane4.setViewportView(returnTable);
 
         javax.swing.GroupLayout ReturnPanelLayout = new javax.swing.GroupLayout(ReturnPanel);
         ReturnPanel.setLayout(ReturnPanelLayout);
@@ -1051,7 +1068,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
                     .addGroup(ReturnPanelLayout.createSequentialGroup()
                         .addComponent(jLabel43)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(searchReturnField, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton15)
                         .addGap(61, 61, 61)
@@ -1074,7 +1091,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
                             .addGap(14, 14, 14)
                             .addComponent(jLabel43))
                         .addComponent(jButton15, javax.swing.GroupLayout.Alignment.TRAILING))
-                    .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchReturnField, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
@@ -1663,16 +1680,110 @@ public class LibraryAdmin extends javax.swing.JFrame {
         publisherField.setText("");
     }//GEN-LAST:event_jButton12ActionPerformed
 
+    // This will remove the borrow book
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        // TODO add your handling code here:
+
+        int  selectedRow = borrowTable.getSelectedRow();
+
+        if (selectedRow == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please select a borrowed book to remove.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String borrowId = (String) borrowTable.getValueAt(selectedRow, 0);
+        String quantity = (String) borrowTable.getValueAt(selectedRow, 7);
+        int confirmDelete = javax.swing.JOptionPane.showConfirmDialog(this, "Are you sure you want to remove this borrowed book?", "Confirm Remove", javax.swing.JOptionPane.YES_NO_OPTION);
+        if (confirmDelete == javax.swing.JOptionPane.YES_OPTION) {
+            BookDB.getInstance().deleteBorrowedBook(borrowId, quantity);
+
+            // Refresh the borrowed book table
+            loadBorrowedBookData();
+            loadBookData();
+            loadData();
+
+        }
     }//GEN-LAST:event_jButton13ActionPerformed
 
+    // filter the borrow book
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        // TODO add your handling code here:
+
+        String searchText = searchBorrowField.getText().trim().toLowerCase();
+
+        borrowedBookTableModel.setRowCount(0); // Clear the table before adding filtered data
+
+        if (searchText.isEmpty()) {
+            loadBorrowedBookData(); // Load all borrowed books if search is empty
+            return;
+        }
+
+        boolean bookFound = false;
+
+        for (BorrowBookModel model : borrowedBookList) {
+            String bookId = model.getBookId() != null ? model.getBookId().trim().toLowerCase() : "";
+            String title = model.getBookTitle() != null ? model.getBookTitle().trim().toLowerCase() : "";
+            String author = model.getBookAuthor() != null ? model.getBookAuthor().trim().toLowerCase() : "";
+            String category = model.getCategory() != null ? model.getCategory().trim().toLowerCase() : "";
+
+            if (bookId.contains(searchText) || title.contains(searchText) || author.contains(searchText) || category.contains(searchText)) {
+                borrowedBookTableModel.addRow(new Object[]{
+                        model.getId(),
+                        model.getBookId(),
+                        model.getBookTitle(),
+                        model.getBookAuthor(),
+                        model.getCategory(),
+                        model.getDateBorrowed(),
+                        model.getDateReturned(),
+                        model.getCopiesBorrowed()
+                });
+                bookFound = true;
+            }
+        }
+
+        if (!bookFound) {
+            javax.swing.JOptionPane.showMessageDialog(this, "No borrowed books found matching the search criteria.", "Search Result", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        }
+
     }//GEN-LAST:event_jButton14ActionPerformed
 
+    /// filter the return book
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-        // TODO add your handling code here:
+
+         String searchText = searchReturnField.getText().trim().toLowerCase();
+
+        returnBookTableModel.setRowCount(0); // Clear the table before adding filtered data
+
+        if (searchText.isEmpty()) {
+            loadReturnBookData(); // Load all returned books if search is empty
+            return;
+        }
+
+        boolean bookFound = false;
+
+        for (ReturnBookModel model : returnBookList) {
+            String bookId = model.getBookId() != null ? model.getBookId().trim().toLowerCase() : "";
+            String title = model.getBookTitle() != null ? model.getBookTitle().trim().toLowerCase() : "";
+            String author = model.getBookAuthor() != null ? model.getBookAuthor().trim().toLowerCase() : "";
+            String category = model.getCategory() != null ? model.getCategory().trim().toLowerCase() : "";
+
+            if (bookId.contains(searchText) || title.contains(searchText) || author.contains(searchText) || category.contains(searchText)) {
+                returnBookTableModel.addRow(new Object[]{
+                        model.getId(),
+                        model.getBookId(),
+                        model.getBookTitle(),
+                        model.getBookAuthor(),
+                        model.getCategory(),
+                        model.getDateReturned(),
+                        model.getCopiesBorrowed()
+                });
+                bookFound = true;
+            }
+        }
+
+        if (!bookFound) {
+            javax.swing.JOptionPane.showMessageDialog(this, "No returned books found matching the search criteria.", "Search Result", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        }
+
+
     }//GEN-LAST:event_jButton15ActionPerformed
 
     // navigate home tab
@@ -1725,8 +1836,31 @@ public class LibraryAdmin extends javax.swing.JFrame {
         ReturnPanel.setVisible(true);
     }//GEN-LAST:event_jLabel8MouseClicked
 
+    
+    // remove the return book
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-        // TODO add your handling code here:
+
+        int selectedRow = returnTable.getSelectedRow();
+
+        if (selectedRow == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Please select a returned book to remove.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String returnId = (String) returnTable.getValueAt(selectedRow, 0);
+        String quantity = (String) returnTable.getValueAt(selectedRow, 6);
+
+        int confirmDelete = javax.swing.JOptionPane.showConfirmDialog(this, "Are you sure you want to remove this returned book?", "Confirm Remove", javax.swing.JOptionPane.YES_NO_OPTION);
+        if (confirmDelete == javax.swing.JOptionPane.YES_OPTION) {
+            BookDB.getInstance().deleteReturnBook(returnId, quantity);
+
+            // Refresh the returned book table
+            loadReturnBookData();
+            loadBookData();
+            loadData();
+        }
+
+
     }//GEN-LAST:event_jButton16ActionPerformed
 
     void loadUserData() {
@@ -1765,6 +1899,68 @@ public class LibraryAdmin extends javax.swing.JFrame {
                 book.getCopyright(),
                 book.getPublisher(),
                 book.getCopies()
+            });
+        }
+    }
+
+    void loadData(){
+
+        int adminCount = AccountRegisterDB.getInstance().getAdminCount();
+
+        int userCount = AccountRegisterDB.getInstance().getUserCount();
+
+        int bookCount = BookDB.getInstance().getBookCount();
+
+        int borrowedCount = BookDB.getInstance().getBorrowedCount();
+
+        int returnedCount = BookDB.getInstance().getReturnedCount();
+
+        adminText.setText(String.valueOf(adminCount));
+        userText.setText(String.valueOf(userCount));
+        bookText.setText(String.valueOf(bookCount));
+        borrowText.setText(String.valueOf(borrowedCount));
+        returnText.setText(String.valueOf(returnedCount));
+
+
+    }
+
+    void loadBorrowedBookData() {
+        // Load borrowed books into the BorrowBookTable
+        borrowedBookList.clear();
+
+        borrowedBookTableModel.setRowCount(0); // Clear existing rows
+
+        borrowedBookList = BookDB.getInstance().getBorrowedBooks();
+        for (BorrowBookModel book : borrowedBookList) {
+            borrowedBookTableModel.addRow(new Object[]{
+                    book.getId(),
+                    book.getBookId(),
+                    book.getBookTitle(),
+                    book.getBookAuthor(),
+                    book.getCategory(),
+                    book.getDateBorrowed(),
+                    book.getDateReturned(),
+                    book.getCopiesBorrowed()
+            });
+        }
+    }
+
+    void  loadReturnBookData () {
+        // Load returned books into the ReturnBookTable
+        returnBookList.clear();
+
+        returnBookTableModel.setRowCount(0); // Clear existing rows
+
+        returnBookList = BookDB.getInstance().getReturnB();
+        for (ReturnBookModel book : returnBookList) {
+            returnBookTableModel.addRow(new Object[]{
+                    book.getId(),
+                    book.getBookId(),
+                    book.getBookTitle(),
+                    book.getBookAuthor(),
+                    book.getCategory(),
+                    book.getDateReturned(),
+                    book.getCopiesBorrowed(),
             });
         }
     }
@@ -1813,9 +2009,13 @@ public class LibraryAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel ReturnPanel;
     private javax.swing.JPanel UserPanel;
     private javax.swing.JTable UserTable;
+    private javax.swing.JLabel adminText;
     private javax.swing.JTextField authorField;
     private javax.swing.JTextField bookIdField;
     private javax.swing.JTextField bookSearchField;
+    private javax.swing.JLabel bookText;
+    private javax.swing.JTable borrowTable;
+    private javax.swing.JLabel borrowText;
     private javax.swing.JTextField copiesField;
     private javax.swing.JTextField copyrightField;
     private javax.swing.JTextField emailField;
@@ -1836,15 +2036,10 @@ public class LibraryAdmin extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -1889,18 +2084,19 @@ public class LibraryAdmin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField15;
     private javax.swing.JTabbedPane jtabpane;
     private javax.swing.JTextField nameField;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JTextField programField;
     private javax.swing.JTextField publisherField;
+    private javax.swing.JTable returnTable;
+    private javax.swing.JLabel returnText;
+    private javax.swing.JTextField searchBorrowField;
+    private javax.swing.JTextField searchReturnField;
     private javax.swing.JTextField searchUserField;
     private javax.swing.JTextField titleField;
     private javax.swing.JComboBox<String> userComboBox;
+    private javax.swing.JLabel userText;
     private javax.swing.JTextField user_id_field;
     private javax.swing.JTextField yearField;
     // End of variables declaration//GEN-END:variables

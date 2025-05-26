@@ -606,4 +606,98 @@ public class BookDB {
             e.printStackTrace();
         }
     }
+
+    public int getBorrowedCount() {
+
+        String sql = "SELECT COUNT(*) FROM BOOKBORROW";
+        try (var connection = DerbyConnectinDB.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(sql);
+             var resultSet = preparedStatement.executeQuery()) {
+
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+       }
+
+    public int getReturnedCount() {
+        String sql = "SELECT COUNT(*) FROM RETURNBOOKK";
+        try (var connection = DerbyConnectinDB.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(sql);
+             var resultSet = preparedStatement.executeQuery()) {
+
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return  0;
+   }
+
+    public int getBookCount() {
+
+        String sql = "SELECT COUNT(*) FROM BOOKS";
+        try (var connection = DerbyConnectinDB.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(sql);
+             var resultSet = preparedStatement.executeQuery()) {
+
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+     }
+
+    public void deleteBorrowedBook(String borrowId, String quantity) {
+        String sql = "DELETE FROM BOOKBORROW WHERE BORROW_ID = ?";
+        try (var connection = DerbyConnectinDB.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(sql)) {
+
+            int borrowIdInt = Integer.parseInt(borrowId); // Convert to int if necessary
+            preparedStatement.setInt(1, borrowIdInt);
+            int result = preparedStatement.executeUpdate();
+
+            if (result > 0) {
+                System.out.println("Borrowed book deleted successfully.");
+                JOptionPane.showMessageDialog(null, "Borrowed book deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                AddQuantity(borrowId, Integer.parseInt(quantity)); // Assuming you want to add back 1 copy when deleting
+            } else {
+                System.out.println("Failed to delete borrowed book.");
+                JOptionPane.showMessageDialog(null, "Failed to delete borrowed book.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteReturnBook(String returnId, String quantity) {
+        String sql = "DELETE FROM RETURNBOOKK WHERE RETURN_ID = ?";
+        try (var connection = DerbyConnectinDB.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(sql)) {
+
+            int returnIdInt = Integer.parseInt(returnId); // Convert to int if necessary
+            preparedStatement.setInt(1, returnIdInt);
+            int result = preparedStatement.executeUpdate();
+
+            if (result > 0) {
+                System.out.println("Returned book deleted successfully.");
+                JOptionPane.showMessageDialog(null, "Returned book deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                AddQuantity(returnId, Integer.parseInt(quantity)); // Assuming you want to add back 1 copy when deleting
+            } else {
+                System.out.println("Failed to delete returned book.");
+                JOptionPane.showMessageDialog(null, "Failed to delete returned book.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

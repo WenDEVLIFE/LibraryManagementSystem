@@ -172,4 +172,39 @@ public class AccountRegisterDB {
             e.printStackTrace();
         }
     }
+
+    public int getAdminCount() {
+        String sql = "SELECT COUNT(*) FROM USERS WHERE CAST(USER_TYPE AS VARCHAR(128)) = 'Admin'";
+        try (Connection connection = DerbyConnectinDB.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+   }
+
+    public int getUserCount() {
+
+        String sql = "SELECT COUNT(*) FROM USERS WHERE CAST(USER_TYPE AS VARCHAR(128)) = 'User'";
+
+        try (Connection connection = DerbyConnectinDB.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+        return 0;
+    }
 }
