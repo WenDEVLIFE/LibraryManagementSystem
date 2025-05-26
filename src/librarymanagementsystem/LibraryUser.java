@@ -54,11 +54,12 @@ public class LibraryUser extends javax.swing.JFrame {
         setResizable(false);
 
         bookGenres.add("Select Genre");
-        bookGenres.add("Art and Science");
-        bookGenres.add("Accountancy and Business Administration");
-        bookGenres.add("Engineering");
-        bookGenres.add("Fine Arts Architecture and Design");
-        bookGenres.add("Basic Education");
+        bookGenres.add("College of Fine Arts and Design (CFAD)");
+        bookGenres.add("College of Engineering (COE)");
+        bookGenres.add("College of Information and Computing Sciences (CICS)");
+        bookGenres.add("College of Tourism and Hospitality Management (CTHM)");
+        bookGenres.add("College of Architecture (CA)");
+        bookGenres.add("College of Arts and Letters (CAL)");
         GenreComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(bookGenres.toArray(new String[0])));
         genderComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(bookGenres.toArray(new String[0])));
         genderComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(bookGenres.toArray(new String[0])));

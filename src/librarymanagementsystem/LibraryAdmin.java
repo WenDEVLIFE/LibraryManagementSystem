@@ -50,7 +50,8 @@ public class LibraryAdmin extends javax.swing.JFrame {
         // Initialize user types
         userTypes.add("Select User Type");
         userTypes.add("Admin");
-        userTypes.add("User");
+        userTypes.add("Student");
+        userTypes.add("Faculty");
         userComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(userTypes.toArray(new String[0])));
 
         String [] columnNames = {"USER ID", "NAME", "EMAIL", "PASSWORD", "USER TYPE", "PROGRAM/DEPARTMENT", "YEAR LEVEL/RANK"};
@@ -59,18 +60,21 @@ public class LibraryAdmin extends javax.swing.JFrame {
         loadUserData();
 
         bookGenres.add("Select Genre");
-        bookGenres.add("Art and Science");
-        bookGenres.add("Accountancy and Business Administration");
-        bookGenres.add("Engineering");
-        bookGenres.add("Fine Arts Architecture and Design");
-        bookGenres.add("Basic Education");
+        bookGenres.add("College of Fine Arts and Design (CFAD)");
+        bookGenres.add("College of Engineering (COE)");
+        bookGenres.add("College of Information and Computing Sciences (CICS)");
+        bookGenres.add("College of Tourism and Hospitality Management (CTHM)");
+        bookGenres.add("College of Architecture (CA)");
+        bookGenres.add("College of Arts and Letters (CAL)");
         genreComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(bookGenres.toArray(new String[0])));
 
+        //BookDB.getInstance().insertAllBooks();
         String [] bookColumnNames = {"BOOK ID", "TITLE", "AUTHOR", "GENRE", "COPYRIGHT", "PUBLISHER", "COPIES AVAILABLE"};
         bookTableModel = new DefaultTableModel(bookColumnNames, 0);
         BookTable.setModel(bookTableModel);
         loadBookData();
         loadData();
+
 
         String [] borrowedBookColumnNames1 = {"BORROW ID","BID", "TITLE", "AUTHOR", "GENRE", "DATE BORROWED", "DATE RETURNED", "NO. OF BOOKS BORROWED"};
         borrowedBookTableModel = new DefaultTableModel(borrowedBookColumnNames1, 0);
@@ -1530,8 +1534,8 @@ public class LibraryAdmin extends javax.swing.JFrame {
         }
 
         // Validate and format the copyright date
-        if (!copyright.matches("\\d{4}-\\d{2}-\\d{2}")) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Copyright must be in the format yyyy-MM-dd (e.g., 1995-05-12).", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        if (!copyright.matches("\\d{4}")) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Copyright must be in the format yyyy (e.g., 1995).", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -1612,6 +1616,7 @@ public class LibraryAdmin extends javax.swing.JFrame {
         if (confirmDelete == javax.swing.JOptionPane.YES_OPTION) {
             BookDB.getInstance().deleteBook(bookID);
 
+             loadBookData();
         }
     }//GEN-LAST:event_jButton10ActionPerformed
 
@@ -1655,8 +1660,8 @@ public class LibraryAdmin extends javax.swing.JFrame {
         }
 
         // Validate and format the copyright date
-        if (!copyright.matches("\\d{4}-\\d{2}-\\d{2}")) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Copyright must be in the format yyyy-MM-dd (e.g., 1995-05-12).", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        if (!copyright.matches("\\d{4}")) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Copyright must be in the format yyyy (e.g., 1995).", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
             return;
         }
 

@@ -58,6 +58,60 @@ public class BookDB {
         return false;
     }
 
+    public void insertAllBooks() {
+        List<Map<String, String>> books = List.of(
+                // College of Fine Arts and Design (CFAD)
+                Map.of("book_id", "CFAD001", "title", "Art Fundamentals: Theory and Practice (12th Edition)", "author", "Otto G. Ocvirk, Robert E. Stinson, Philip R. Wigg, Robert O. Bone, David L. Cayton", "genre", "College of Fine Arts and Design (CFAD)", "copyright", "2012", "publisher", "McGraw-Hill Education", "copies", "10"),
+                Map.of("book_id", "CFAD002", "title", "Design Basics (9th Edition)", "author", "David A. Lauer, Stephen Pentak", "genre", "College of Fine Arts and Design (CFAD)", "copyright", "2015", "publisher", "Cengage Learning", "copies", "10"),
+                Map.of("book_id", "CFAD003", "title", "The Elements of Graphic Design (2nd Edition)", "author", "Alex W. White", "genre", "College of Fine Arts and Design (CFAD)", "copyright", "2011", "publisher", "Allworth Press", "copies", "10"),
+                Map.of("book_id", "CFAD004", "title", "History of Modern Art (7th Edition)", "author", "H. H. Arnason, Elizabeth C. Mansfield", "genre", "College of Fine Arts and Design (CFAD)", "copyright", "2012", "publisher", "Pearson Education", "copies", "10"),
+                Map.of("book_id", "CFAD005", "title", "Interaction of Color (50th Anniversary Edition)", "author", "Josef Albers", "genre", "College of Fine Arts and Design (CFAD)", "copyright", "2013", "publisher", "Yale University Press", "copies", "10"),
+
+                // College of Engineering (COE)
+                Map.of("book_id", "COE001", "title", "Engineering Mechanics: Statics (15th Edition)", "author", "Russell C. Hibbeler", "genre", "College of Engineering (COE)", "copyright", "2022", "publisher", "Pearson Education", "copies", "10"),
+                Map.of("book_id", "COE002", "title", "Engineering Mechanics: Dynamics (7th Edition)", "author", "J. L. Meriam, L. G. Kraige", "genre", "College of Engineering (COE)", "copyright", "2013", "publisher", "John Wiley & Sons, Inc.", "copies", "10"),
+                Map.of("book_id", "COE003", "title", "Thermodynamics: An Engineering Approach (9th Edition)", "author", "Yunus A. Çengel, Michael A. Boles", "genre", "College of Engineering (COE)", "copyright", "2019", "publisher", "McGraw-Hill Education", "copies", "10"),
+                Map.of("book_id", "COE004", "title", "Introduction to Fluid Mechanics (8th Edition)", "author", "Robert W. Fox, Alan T. McDonald, Philip J. Pritchard", "genre", "College of Engineering (COE)", "copyright", "2016", "publisher", "Wiley", "copies", "10"),
+                Map.of("book_id", "COE005", "title", "Electrical Engineering: Principles and Applications (7th Edition)", "author", "Allan R. Hambley", "genre", "College of Engineering (COE)", "copyright", "2013", "publisher", "Pearson Education", "copies", "10"),
+
+                // College of Arts and Letters (CAL)
+                Map.of("book_id", "CAL001", "title", "Why Choose the Liberal Arts?", "author", "Mark William Roche", "genre", "College of Arts and Letters (CAL)", "copyright", "2022", "publisher", "University of Notre Dame Press", "copies", "10"),
+                Map.of("book_id", "CAL002", "title", "The Problems of Viewing Performance: Epistemology and Other Minds", "author", "Michael Y. Bennett", "genre", "College of Arts and Letters (CAL)", "copyright", "2021", "publisher", "Routledge", "copies", "10"),
+                Map.of("book_id", "CAL003", "title", "Contemporary African Dance Theatre: Phenomenology, Whiteness, and the Gaze", "author", "Sabine Sörgel", "genre", "College of Arts and Letters (CAL)", "copyright", "2020", "publisher", "Springer Nature", "copies", "10"),
+                Map.of("book_id", "CAL004", "title", "Acts of Dramaturgy: The Shakespeare Trilogy", "author", "Michael Pinchbeck", "genre", "College of Arts and Letters (CAL)", "copyright", "2020", "publisher", "Intellect Books", "copies", "10"),
+                Map.of("book_id", "CAL005", "title", "Gathering: Political Writing on Art and Culture", "author", "Marian Pastor-Roces", "genre", "College of Arts and Letters (CAL)", "copyright", "2019", "publisher", "De La Salle-College of Saint Benilde, Incorporated", "copies", "10"),
+                Map.of("book_id", "CAL006", "title", "Jolography", "author", "Paolo Manalo", "genre", "College of Arts and Letters (CAL)", "copyright", "2003", "publisher", "University of the Philippines Press", "copies", "10"),
+                Map.of("book_id", "CAL007", "title", "Sa Sariling Bayan: Apat na Dulang May Musika", "author", "Bienvenido Lumbera", "genre", "College of Arts and Letters (CAL)", "copyright", "2004", "publisher", "De La Salle University-Manila Press", "copies", "10"),
+                Map.of("book_id", "CAL008", "title", "Philippine Theater: A History and Anthology (Vol. I–V)", "author", "Nicanor Tiongson", "genre", "College of Arts and Letters (CAL)", "copyright", "1999", "publisher", "University of the Philippines Press", "copies", "10"),
+                Map.of("book_id", "CAL009", "title", "Contemporary Social Philosophy", "author", "Manuel B. Dy Jr.", "genre", "College of Arts and Letters (CAL)", "copyright", "2014", "publisher", "Aklat ng Bayan", "copies", "10"),
+                Map.of("book_id", "CAL010", "title", "Notes on Bakya and Other Essays", "author", "Carlos Palanca Memorial Awardee", "genre", "College of Arts and Letters (CAL)", "copyright", "2024", "publisher", "University of the Philippines Press", "copies", "10"),
+
+                // College of Architecture Books (CAR)
+                Map.of("book_id", "CAR001", "title", "Audiovisual Textbook of Philippine Architecture", "author", "Gerard Rey A. Lico, Joonee Gamboa, Susan Medina, Maria Cristina V. Turalba", "genre", "College of Architecture (CAR)", "copyright", "2007", "publisher", "National Commission for Culture and the Arts (NCCA) Committee on Architecture and Allied Arts", "copies", "10"),
+                Map.of("book_id", "CAR002", "title", "Eric Owen Moss: Buildings and Projects", "author", "Eric Owen Moss", "genre", "College of Architecture (CAR)", "copyright", "1991", "publisher", "Monacelli Press", "copies", "10"),
+                Map.of("book_id", "CAR003", "title", "Commercial Space: Offices", "author", "Francisco Asensio Cerver", "genre", "College of Architecture (CAR)", "copyright", "1995", "publisher", "Editions du Chêne", "copies", "10"),
+                Map.of("book_id", "CAR004", "title", "Building Codes Illustrated: A Guide to Understanding the 2000 International Building Code", "author", "Frank Ching", "genre", "College of Architecture (CAR)", "copyright", "2003", "publisher", "John Wiley & Sons", "copies", "10"),
+                Map.of("book_id", "CAR005", "title", "Pasyal: UP Diliman Art Trail", "author", "Tessa Maria Guazon", "genre", "College of Architecture (CAR)", "copyright", "2017", "publisher", "University of the Philippines", "copies", "10"),
+
+                // College of Information and Computing Sciences (CICS)
+                Map.of("book_id", "CICS001", "title", "Introduction to the Theory of Computation (3rd Edition)", "author", "Michael Sipser", "genre", "College of Information and Computing Sciences (CICS)", "copyright", "2012", "publisher", "Cengage Learning", "copies", "10"),
+                Map.of("book_id", "CICS002", "title", "Artificial Intelligence: A Modern Approach (4th Edition)", "author", "Stuart Russell, Peter Norvig", "genre", "College of Information and Computing Sciences (CICS)", "copyright", "2020", "publisher", "Pearson Education", "copies", "10"),
+                Map.of("book_id", "CICS003", "title", "Computer Networking: A Top-Down Approach (8th Edition)", "author", "James F. Kurose, Keith W. Ross", "genre", "College of Information and Computing Sciences (CICS)", "copyright", "2021", "publisher", "Pearson Education", "copies", "10"),
+                Map.of("book_id", "CICS004", "title", "Clean Code: A Handbook of Agile Software Craftsmanship", "author", "Robert C. Martin", "genre", "College of Information and Computing Sciences (CICS)", "copyright", "2008", "publisher", "Prentice Hall", "copies", "10"),
+                Map.of("book_id", "CICS005", "title", "Database System Concepts (7th Edition)", "author", "Abraham Silberschatz, Henry F. Korth, S. Sudarshan", "genre", "College of Information and Computing Sciences (CICS)", "copyright", "2019", "publisher", "McGraw-Hill Education", "copies", "10"),
+
+                // College of Tourism and Hospitality Management (CTHM)
+                Map.of("book_id", "CTHM001", "title", "Hospitality Today: An Introduction (8th Edition)", "author", "Rocco M. Angelo, Andrew N. Vladimir", "genre", "College of Tourism and Hospitality Management (CTHM)", "copyright", "2016", "publisher", "Educational Institute of the American Hotel & Lodging Association", "copies", "10"),
+                Map.of("book_id", "CTHM002", "title", "Tourism: Principles, Practices, Philosophies (12th Edition)", "author", "Charles R. Goeldner, J.R. Brent Ritchie", "genre", "College of Tourism and Hospitality Management (CTHM)", "copyright", "2012", "publisher", "Wiley", "copies", "10"),
+                Map.of("book_id", "CTHM003", "title", "Managing Hospitality Human Resources (6th Edition)", "author", "Robert H. Woods, Misty M. Johanson, Michael Sciarini", "genre", "College of Tourism and Hospitality Management (CTHM)", "copyright", "2020", "publisher", "AHLEI", "copies", "10"),
+                Map.of("book_id", "CTHM004", "title", "Introduction to Hospitality (8th Edition)", "author", "John R. Walker", "genre", "College of Tourism and Hospitality Management (CTHM)", "copyright", "2019", "publisher", "Pearson Education", "copies", "10"),
+                Map.of("book_id", "CTHM005", "title", "Sustainable Tourism: Principles, Contexts and Practices", "author", "David A. Fennell, Ross K. Dowling", "genre", "College of Tourism and Hospitality Management (CTHM)", "copyright", "2020", "publisher", "Channel View Publications", "copies", "10")
+        );
+
+        for (Map<String, String> book : books) {
+            addBook(book);
+        }
+    }
 
 
     public void addBook(Map<String, String> bookData) {
@@ -141,7 +195,7 @@ public class BookDB {
     }
 
     public void deleteBook(String bookID) {
-        String sql = "DELETE FROM BOOKS WHERE WHERE CAST(BOOK_ID AS VARCHAR(128)) = ?";
+        String sql = "DELETE FROM BOOKS WHERE CAST(BOOK_ID AS VARCHAR(128)) = ?";
         try (var connection = DerbyConnectinDB.getInstance().getConnection();
              var preparedStatement = connection.prepareStatement(sql)) {
 
@@ -211,10 +265,8 @@ public class BookDB {
 
             if (result > 0) {
                 System.out.println("Book quantity updated successfully.");
-                JOptionPane.showMessageDialog(null, "Book quantity updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 System.out.println("Failed to update book quantity.");
-                JOptionPane.showMessageDialog(null, "Failed to update book quantity.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -226,6 +278,8 @@ public class BookDB {
         try (var connection = DerbyConnectinDB.getInstance().getConnection();
              var preparedStatement = connection.prepareStatement(sql)) {
 
+            System.out.println("AddQuantity called with bookId: " + bookId + ", quantity: " + quantity);
+
             preparedStatement.setInt(1, quantity);
             preparedStatement.setString(2, bookId);
 
@@ -233,10 +287,8 @@ public class BookDB {
 
             if (result > 0) {
                 System.out.println("Book quantity updated successfully.");
-                JOptionPane.showMessageDialog(null, "Book quantity updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                System.out.println("Failed to update book quantity.");
-                JOptionPane.showMessageDialog(null, "Failed to update book quantity.", "Error", JOptionPane.ERROR_MESSAGE);
+                System.out.println("Failed to update book quantity. No rows affected.");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -252,17 +304,9 @@ public class BookDB {
              var resultSet = preparedStatement.executeQuery()) {
 
             while (resultSet.next()) {
-                // Generate BORROW_ID by counting rows
-                String countSql = "SELECT COUNT(*) FROM BOOKBORROW";
-                int borrowId = 0;
-                try (var countStmt = connection.prepareStatement(countSql);
-                     var countResultSet = countStmt.executeQuery()) {
-                    if (countResultSet.next()) {
-                        borrowId = countResultSet.getInt(1) + 1; // Increment count for new ID
-                    }
-                }
 
-                String id = String.valueOf(borrowId); // Use the count as BORROW_ID
+
+                String id = resultSet.getString("BORROW_ID");
                 String userId = resultSet.getString("USER_ID");
                 String bookId = resultSet.getString("BOOK_ID");
                 String dateBorrowed = resultSet.getString("DATE_BORROWED");
@@ -658,6 +702,8 @@ public class BookDB {
         try (var connection = DerbyConnectinDB.getInstance().getConnection();
              var preparedStatement = connection.prepareStatement(sql)) {
 
+            System.out.println("Deleting BORROW_ID: " + borrowId + ", Quantity: " + quantity);
+
             int borrowIdInt = Integer.parseInt(borrowId); // Convert to int if necessary
             preparedStatement.setInt(1, borrowIdInt);
             int result = preparedStatement.executeUpdate();
@@ -667,7 +713,7 @@ public class BookDB {
                 JOptionPane.showMessageDialog(null, "Borrowed book deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
                 AddQuantity(borrowId, Integer.parseInt(quantity)); // Assuming you want to add back 1 copy when deleting
             } else {
-                System.out.println("Failed to delete borrowed book.");
+                System.out.println("Failed to delete borrowed book. No rows affected.");
                 JOptionPane.showMessageDialog(null, "Failed to delete borrowed book.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {

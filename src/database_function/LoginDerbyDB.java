@@ -75,7 +75,7 @@ public class LoginDerbyDB {
                  String name = resultSet.getString("NAME");
                  String userType = resultSet.getString("USER_TYPE");
 
-                 if (userType.equals("User")) {
+                 if (userType.equals("Student") || userType.equals("Faculty") || userType.equals("User")) {
                      LibraryUser user = new LibraryUser(userId, name);
                      user.setVisible(true);
                      loginUser.dispose();
