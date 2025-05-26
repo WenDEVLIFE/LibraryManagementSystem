@@ -189,6 +189,7 @@ public class BookDB {
                 System.out.println("Book borrowed successfully.");
                 JOptionPane.showMessageDialog(null, "Book borrowed successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
                 UpdateQuantity(bookData.get("book_id"), Integer.parseInt(bookData.get("quantity")));
+                 DeleteReturnBook(bookData.get("book_id"));
             } else {
                 System.out.println("Failed to borrow book.");
                 JOptionPane.showMessageDialog(null, "Failed to borrow book.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -417,31 +418,26 @@ public class BookDB {
 
             if (result > 0) {
                 System.out.println("Borrowed book deleted successfully.");
-                JOptionPane.showMessageDialog(null, "Borrowed book deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 System.out.println("Failed to delete borrowed book.");
-                JOptionPane.showMessageDialog(null, "Failed to delete borrowed book.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void DeleteReturnBook(String returnId) {
-        String sql = "DELETE FROM RETURNBOOKK WHERE RETURN_ID = ?";
+    public void DeleteReturnBook(String bookId) {
+        String sql = "DELETE FROM RETURNBOOKK WHERE CAST(BOOK_ID AS VARCHAR(128)) = ?";
         try (var connection = DerbyConnectinDB.getInstance().getConnection();
              var preparedStatement = connection.prepareStatement(sql)) {
 
-            int returnId11 = Integer.parseInt(returnId); // Convert to int if necessary
-            preparedStatement.setInt(1, returnId11);
+            preparedStatement.setString(1, bookId);
             int result = preparedStatement.executeUpdate();
 
             if (result > 0) {
                 System.out.println("Returned book deleted successfully.");
-                JOptionPane.showMessageDialog(null, "Returned book deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 System.out.println("Failed to delete returned book.");
-                JOptionPane.showMessageDialog(null, "Failed to delete returned book.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
             e.printStackTrace();
